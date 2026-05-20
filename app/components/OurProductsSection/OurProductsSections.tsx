@@ -1,15 +1,12 @@
 "use client";
-import { LineIcon } from "@/app/icons/LineIcon";
-import React, { useEffect, useState } from "react";
-import our_products_bacground from "@/public/images/our_products_section_bacground.png";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import ButtonParrentComponent from "../ButtonParrentComponent/ButtonParrentComponent";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
-import Link from "next/link";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -30,7 +27,7 @@ type Product = {
   slug: string;
   category_slug: string;
   code: string;
-  img: string[];
+  img: string[] | string | null;
 };
 
 const FEATURED_PRODUCT_CODES = [
@@ -46,6 +43,14 @@ const FEATURED_PRODUCT_CODES = [
   "PZ-sanitaric-64",
   "PZ-hygiene-66",
 ];
+
+// img կարող է լինել string, string[], կամ null — բոլոր դեպքերը handle ենք անում
+const getImgSrc = (img: string[] | string | null): string => {
+  if (!img) return "";
+  if (typeof img === "string") return img;
+  if (Array.isArray(img) && img.length > 0) return img[0];
+  return "";
+};
 
 const OurProductsSections = () => {
   const t = useTranslations("");
@@ -116,17 +121,10 @@ const OurProductsSections = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(${our_products_bacground.src})` }}
       className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
-        <div className="flex items-center justify-center gap-3">
-          <LineIcon width={27} height={2} color="#5939F5" />
-          <h2 className="text-[24px] font_color font-normal arm_Hmks_Bebas_Neue leading-[28.8px]">
-            {t(`OurProductsSection.title`)}
-          </h2>
-          <LineIcon width={27} height={2} color="#5939F5" />
-        </div>
+        
 
         <div className="w-full px-4">
           {loading ? (
@@ -159,7 +157,7 @@ const OurProductsSections = () => {
                     ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
                     : product.code;
 
-                    
+
                 return (
                   <SwiperSlide key={product.id}>
                     <Link
@@ -168,12 +166,13 @@ const OurProductsSections = () => {
                       title={title}
                     >
                         <Image
-                          src={getIngsrc=(product.img)}
+                          src={getImgSrc(product.img)}
                           alt={title}
                           width={300}
                           height={250}
                           className="object-cover h-[250px] w-full"
                         />
+                   
                       <p className="text-lg mt-2 font-semibold">
                         {product.code}
                       </p>
@@ -185,12 +184,12 @@ const OurProductsSections = () => {
           )}
         </div>
 
-        <ButtonParrentComponent
-          btnText={t("OurProductsSection.see_more_btn")}
-        />
+        
       </div>
     </div>
   );
 };
+
+
 
 export default OurProductsSections;
