@@ -7,6 +7,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
+import { ENV } from "@/src/lib/env";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -88,9 +89,7 @@ const SimilarProductsSwipers = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
+               Authorization: `Bearer ${ENV.API_KEY}`,
             },
             cache: "no-store",
           }
@@ -166,7 +165,7 @@ const SimilarProductsSwipers = () => {
                       title={title}
                     >
                         <Image
-                          src={getImgSrc(product.img)}
+                          src={product.image}
                           alt={title}
                           width={300}
                           height={250}

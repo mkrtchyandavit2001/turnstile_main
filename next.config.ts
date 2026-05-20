@@ -93,49 +93,60 @@
 
 // export default withNextIntl(nextConfig);
 
-import path from 'path';
-import { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+// import path from 'path';
+// import { NextConfig } from 'next';
+// import createNextIntlPlugin from 'next-intl/plugin';
 
-// Укажите правильный путь к i18n файлу
-const withNextIntl = createNextIntlPlugin('./i18n.ts');
+// // Укажите правильный путь к i18n файлу
+// const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
-const nextConfig: NextConfig = {
-    output: 'standalone',
+// const nextConfig: NextConfig = {
+//     output: 'standalone',
 
-    // FIX WARNING
-    outputFileTracingRoot: path.join(__dirname),
+//     // FIX WARNING
+//     outputFileTracingRoot: path.join(__dirname),
 
-    typescript: {
-        ignoreBuildErrors: true,
-    },
+//     typescript: {
+//         ignoreBuildErrors: true,
+//     },
 
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
+//     eslint: {
+//         ignoreDuringBuilds: true,
+//     },
 
-    images: {
-        unoptimized: true,
+//     images: {
+//         unoptimized: true,
 
-        remotePatterns:
-            process.env.NODE_ENV === 'development'
-                ? [
-                      {
-                          protocol: 'http',
-                          hostname: 'host.docker.internal',
-                          port: '8088',
-                          pathname: '/storage/**',
-                      },
-                  ]
-                : [
-                      {
-                          protocol: 'https',
-                          hostname: 'turniket.am',
-                          pathname: '/storage/**',
-                      },
-                  ],
-    },
+//         remotePatterns:
+//             process.env.NODE_ENV === 'development'
+//                 ? [
+//                       {
+//                           protocol: 'http',
+//                           hostname: 'host.docker.internal',
+//                           port: '8088',
+//                           pathname: '/storage/**',
+//                       },
+//                   ]
+//                 : [
+//                       {
+//                           protocol: 'https',
+//                           hostname: 'turniket.am',
+//                           pathname: '/storage/**',
+//                       },
+//                   ],
+//     },
     
+    
+// };
+
+
+// export default withNextIntl(nextConfig);
+
+
+const nextConfig = {
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
-export default withNextIntl(nextConfig);
+module.exports = nextConfig;
