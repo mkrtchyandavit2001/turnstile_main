@@ -22,6 +22,14 @@ const productCodeToTitleIndex: Record<string, number> = {
   "PZ-6": 10,
 };
 
+type Product = {
+  id: number;
+  slug: string;
+  category_slug: string;
+  code: string;
+  img: string[] | string | null;
+};
+
 const FEATURED_PRODUCT_CODES = [
   "PZ-3",
   "PZ-4",
@@ -36,14 +44,7 @@ const FEATURED_PRODUCT_CODES = [
   "PZ-hygiene-66",
 ];
 
-type Product = {
-  id: number;
-  slug: string;
-  category_slug: string;
-  code: string;
-  img: string[] | string | null;
-};
-
+// img կարող է լինել string, string[], կամ null — բոլոր դեպքերը handle ենք անում
 const getImgSrc = (img: string[] | string | null): string => {
   if (!img) return "";
   if (typeof img === "string") return img;
@@ -52,7 +53,7 @@ const getImgSrc = (img: string[] | string | null): string => {
 };
 
 const SimilarProductsSwipers = () => {
-  const t = useTranslations();
+  const t = useTranslations("");
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -82,7 +83,7 @@ const SimilarProductsSwipers = () => {
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
     const fetchData = async () => {
-      try {
+     try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
@@ -96,10 +97,7 @@ const SimilarProductsSwipers = () => {
         );
 
         const data = await res.json();
-
-        // DEBUG — տեսնելու img field-ի կառուցվածքը
-        console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
-
+        
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)
         );
@@ -111,74 +109,84 @@ const SimilarProductsSwipers = () => {
         );
 
         setProducts(filtered);
-        
-      } catch (err) {
+      }  catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
-    console.log(products);
-    
+
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[250px]">
-        <p className="text-gray-500">Loading...</p>
-      </div>
-    );
-  }
-
   return (
-    <Swiper
-      slidesPerView={4}
-      spaceBetween={30}
-      navigation={true}
-      modules={[Navigation, Autoplay]}
-      loop
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      breakpoints={{
-        320: { slidesPerView: 1, spaceBetween: 10 },
-        640: { slidesPerView: 2, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 30 },
-        1280: { slidesPerView: 4, spaceBetween: 30 },
-      }}
-      className="mySwiper"
+    <div
+      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
-      {products.map((product) => {
-        const titleIndex = productCodeToTitleIndex[product.code];
-        const title =
-          titleIndex !== undefined
-            ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
-            : product.code;
+      <div className="container flex flex-col gap-[50px] justify-center items-center">
+        
 
-
-        return (
-          <SwiperSlide key={product.id}>
-            <Link
-              href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
-              className="flex flex-col items-center"
-              title={title}
+        <div className="w-full px-4">
+          {loading ? (
+            <div className="flex justify-center items-center h-[250px]">
+              <p className="text-gray-500">Loading...</p>
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={30}
+              navigation={true}
+              modules={[Navigation, Autoplay]}
+              loop
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1280: { slidesPerView: 4, spaceBetween: 30 },
+              }}
+              className="mySwiper"
             >
-                <Image
-                  src={getImgSrc=(product.img)}
-                  alt={title}
-                  width={300}
-                  height={250}
-                  className="object-cover h-[250px] w-full"
-                />
-            
-              <p className="text-lg mt-2 font-semibold">{product.code}</p>
-            </Link>
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
+              {products.map((product) => {
+                const titleIndex = productCodeToTitleIndex[product.code];
+                const title =
+                  titleIndex !== undefined
+                    ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
+                    : product.code;
+
+
+                return (
+                  <SwiperSlide key={product.id}>
+                    <Link
+                      href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
+                      className="flex flex-col items-center"
+                      title={title}
+                    >
+                        <Image
+                          src={getImgSrc(product.img)}
+                          alt={title}
+                          width={300}
+                          height={250}
+                          className="object-cover h-[250px] w-full"
+                        />
+                   
+                      <p className="text-lg mt-2 font-semibold">
+                        {product.code}
+                      </p>
+                    </Link>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+        </div>
+
+        
+      </div>
+    </div>
   );
 };
 
