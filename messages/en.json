@@ -1,0 +1,833 @@
+{
+  "HomePage": {
+    "title": "HomePage",
+    "content": "Home content"
+  },
+  "HomePageCarousel": {
+    "titles": [
+      "Enhance your turnstile security and control with our solutions.",
+      "Turnstile Systems.",
+      "Security and Comfort."
+    ],
+    "paragraphs": [
+      "We offer solutions that will protect your space from unwanted entry.",
+      "Designed for comfort and security.",
+      "Our solutions provide security and comfort in all situations."
+    ],
+    "buttonText": "Get Consultation"
+  },
+  "NavMenu": {
+    "home": "Home",
+    "turnstile": "Turnstile",
+    "security-systems": "Security Systems",
+    "smart-home": "Smart Home",
+    "about-us": "About Us",
+    "catalog": "Our Products",
+    "crm-system": "CRM System",
+    "contact-us": "Contact Us"
+  },
+  "NavTop": {
+    "address": "Baghramyan st. 79, 1/1"
+  },
+  "TurnstileBanner": {
+    "title": "The best solutions for your access control",
+    "content": "Choose high-quality turnstiles for any area, tailored to your needs.",
+    "see_more_btn": "View the range",
+    "dawnload_pdf_btn": "Get Prices",
+    "bannerItems": [
+      "Durability: long-term use",
+      "Maintaining order",
+      "Modern design and technology",
+      "Increased security"
+    ]
+  },
+  "BannerList": {
+    "title": "Our Range",
+    "text": "We offer entrance security and control systems that allow you to:",
+    "list": [
+      "Block entry for unauthorized individuals.",
+      "Allow employees or authorized persons to enter using QR codes, RFID cards, FaceID devices, and fingerprint scanners.",
+      "Monitor employees' entry and exit dates and times.",
+      "Generate reports on employees' entry and exit data for different time periods (month, quarter, year).",
+      "Control visitor access with the ability to limit the number of entries. In addition, we implement other features and functionalities in the system according to the client's needs."
+    ]
+  },
+  "InfoServices": {
+    "h2": "Services",
+    "titles": [
+      "Turnstile Sales and Service",
+      "Smart Home Solutions",
+      "Barriers and Security Systems"
+    ],
+    "btn": "More"
+  },
+  "OurProductsSection": {
+    "title": "Our Products",
+    "title2": "Our Products",
+    "see_more_btn": "View the range",
+    "order_btn": "Order"
+  },
+  "QrScanSection": {
+    "title": "QR code scanner",
+    "description": "If there is no opportunity or space to install a turnstile, we offer you the perfect solution: a QR scanning device that will make your space more organized and convenient.",
+    "advantages": [
+      "Convenient and simple installation. The device is easily attached to the wall and does not take up unnecessary space.",
+      "Compact design: A minimalist solution that blends in with any interior.",
+      "Functionality: Fast and accurate QR code scanning for access control or other processes.",
+      "Cost-effective solution: Get the same effective control without the need to install a turnstile."
+    ],
+    "order": "Order"
+  },
+  "MadeInArmeniaSection": {
+    "title": "Made in Armenia",
+    "description": "We offer a wide range of turnstiles that suit different needs and environments, from offices to high-traffic public areas. Our products are manufactured in Armenia, ensuring high quality and competitive prices. Turnstiles are suitable for both security and law enforcement. We also offer customized solutions to meet your requirements.",
+    "view_more_btn": "View the range"
+  },
+  "TurnstileInfoSection": {
+    "title": "Your Reliable Choice of Turnstiles",
+    "description": "The turnstiles are equipped with the latest technologies: card, QR code and facial recognition systems. They are made of high-quality materials, ensuring durability and long-term use. Our products provide easy installation, technical support and affordable prices to meet the needs of any business.",
+    "view_more_btn": "View the range"
+  },
+  "ServicesSection": {
+    "titles": [
+      "With all types of systems",
+      "These features make turnstiles an ideal solution for various areas to ensure safety and efficiency."
+    ],
+    "items": [
+      "Facial recognition",
+      "Fingerprint recognition",
+      "QR scan",
+      "RFID card"
+    ]
+  },
+  "TurnstileServicesCicyleSection": {
+    "titles": [
+      "Our turnstile services, from sales to maintenance",
+      "Our company not only sells turnstiles, but also provides their professional maintenance, freeing you from technical problems and guaranteeing the uninterrupted operation of the equipment."
+    ],
+    "items": [
+      "Installation of turnstiles",
+      "Regular technical inspections",
+      "Individual solutions to your problems",
+      "Software updates"
+    ],
+    "btn": "Free consultation"
+  },
+  "AdminPanelScreenSection": {
+    "titles": [
+      "Track the entry and exit of your employees",
+      "Our turnstile systems allow you to easily and accurately track the entry and exit of your employees, providing a high level of control."
+    ]
+  },
+  "DeviceSection": {
+    "titleTurnstilePage": "You can also find us here.",
+    "titleHomePage": "Security systems",
+    "descriptionHomePage": "We offer a wide range of security systems suitable for both homes and business premises.",
+    "descriptionTurnstilePage": "We offer a wide range of security systems suitable for both homes and business premises.",
+    "items": [
+      "Facial recognition devices",
+      "QR scanning devices",
+      "Smart shelves"
+    ]
+  },
+  "OurWorksSection": {
+    "title": "Our works",
+    "items": [
+      "Turnstile designed for supermarkets",
+      "Turnstile designed for offices",
+      "Outdoor Turnstile with Face Recognition: Secure and Smart Access Control System",
+      "Turnstile Sales: The Best Solutions for Your Company's Security and Management",
+      "Employee Monitoring Device with Face Recognition and QR Scanning Capability",
+      "Demonstration of a Unified Ticketing System with QR Ticket Entry",
+      "Yerevan History Museum",
+      "Access Restriction System with Turnstile",
+      "RFID card, QR, fingerprint, facial recognition turnstiles for museums, cinemas, theaters and other places"
+    ]
+  },
+  "ContactSection": {
+    "captcha": {
+      "required": "Please confirm that you are not a robot"
+    },
+    "title": "Contact Us",
+    "placeholders": [
+      "Full Name",
+      "Phone",
+      "Email",
+      "Organization",
+      "Attach file",
+      "Message",
+      "Preferred Time",
+      "Product Code",
+      "Message",
+      "Send Message"
+    ],
+    "validations": [
+      "Full name is required",
+      "Phone number is required",
+      "Email is required",
+      "Invalid email address"
+    ],
+    "captcha1": {
+      "text1": "Slide to verify",
+      "text2": "Verified",
+      "not_completed": "Please complete the verification"
+    },
+    "message": {
+      "success": "Your message has been sent successfully",
+      "error": "Something went wrong. Please try again"
+    },
+    "contactInfo": {
+      "title": "Contact Information",
+      "address_label": "Address",
+      "address": "Yerevan, Armenia",
+      "phone_label": "Phone",
+      "email_label": "Email",
+      "working_hours_label": "Working hours",
+      "working_hours": "Mon–Fri 09:00–18:00",
+      "map": "Map Location"
+    }
+  },
+  "FrequentlyAsked": {
+    "title": "Frequently asked questions",
+    "questions": [
+      {
+        "question": "What is a turnstile and where is it used?",
+        "answer": "A turnstile is a device that restricts access to certain areas, ensuring security and control. It is often used in institutions, offices, events, and public transportation."
+      },
+      {
+        "question": "What types of turnstiles do you offer? ",
+        "answer": "We offer various types of turnstiles: rotary, full-height, tripod, and electronic turnstiles. Each type is suitable for different operating conditions and levels of security."
+      },
+      {
+        "question": "What software is needed to manage turnstiles?",
+        "answer": "Specialized software is required to manage turnstiles, allowing control of access, tracking passages, and generating reports. We offer integrated solutions for managing all our devices"
+      },
+      {
+        "question": "How are turnstiles connected to the management system?",
+        "answer": "Turnstiles can be connected to the management system via Ethernet or RS-485. We provide all necessary instructions and technical support for installation."
+      },
+      {
+        "question": "Can turnstiles be integrated with video surveillance systems? ",
+        "answer": " Yes, our turnstiles can be integrated with video surveillance systems to enhance security. This allows for tracking passages and recording video in real-time."
+      },
+      {
+        "question": "What is the warranty on turnstiles? ",
+        "answer": "All our turnstiles come with a 12-month warranty. We also offer maintenance and repair services after the warranty period expires."
+      },
+      {
+        "question": "How do I choose the right turnstile for my business?",
+        "answer": "The choice of a turnstile depends on your security needs, volume of passages, and characteristics of the premises. Our specialists are ready to help you find the optimal solution."
+      },
+      {
+        "question": "Do you provide installation services for turnstiles? ",
+        "answer": "Yes, we offer installation services for turnstiles. Our team of experienced specialists will ensure quality installation and setup of the equipment."
+      },
+      {
+        "question": "How can I order a turnstile and software?",
+        "answer": "You can order a turnstile and software through our website by filling out the order form or by contacting us by phone. We are also ready to answer all your questions."
+      },
+      {
+        "question": "Is there an option to test the equipment before purchase? ",
+        "answer": "Yes, we offer the opportunity to test certain models of turnstiles before purchase. Please contact our manager for more information about available options."
+      }
+    ]
+  },
+  "SecuritySystemsBanner": {
+    "title": "Overall Security Management of the Area through Your Phone",
+    "description": "Smart solutions for barriers, vehicle recognition, facial recognition, alarm activation, and more.",
+    "btn": "Find the solution."
+  },
+  "MobileAppSection": {
+    "title": "Download our app."
+  },
+  "WhyChooseUsSection": {
+    "title": "Why choose us?",
+    "list": [
+      "Customized solutions for your space and business needs.",
+      "Innovative technologies integrated with any infrastructure.",
+      "Data security with strict confidentiality.",
+      "Reliability and long-term support."
+    ]
+  },
+  "SecurityInfoSection": {
+    "smartShelvesTitle": "Smart shelves",
+    "smartShelvesParagraph": "Card-operated bedside cabinets webex A great solution for having a safe box that is safe from thieves, also available in different colors. You bring the card close to the cabinet and it opens automatically.",
+    "firstTitle": "Stay Connected with Your Security System.",
+    "secondTitle": "Alarm Activation.",
+    "firstParagraph": "With our advanced solutions, you can monitor your space's security from anywhere. Use our convenient app or website to view, respond, and control your system instantly. Stay connected to your devices in real time, whether you're at home or on the go.",
+    "secondParagraph": "Respond immediately to any threat with alarm activation. Our system is designed to notify you of danger through sound, light, and remote alerts. With additional integration, you can activate or deactivate the alarm from your phone without being on-site.",
+    "firstList": {
+      "title": "Features:",
+      "list": [
+        "Live video streaming.",
+        "Security status check.",
+        "Alerts in case of danger.",
+        "User-friendly interface with compatibility across all devices."
+      ]
+    },
+    "secondList": {
+      "title": "Features:",
+      "list": [
+        "Visual and audio signals.",
+        "Remote control capability.",
+        "Automatic noise detection.",
+        "Active status of the area."
+      ]
+    },
+    "tm22Info": [
+      "A modern and practical solution for your bedroom – the WebEx Premium Smart nightstand combines elegant design with multifunctional features.",
+      "Key Features: Bluetooth connectivity – allowing you to connect to your smartphone or other devices and enjoy your favorite music wirelessly.",
+      "Wireless charging – convenient charging for your smartphone (compatible with Qi-enabled devices).",
+      "Light effects – built-in LED lights in various colors that create a relaxing or romantic atmosphere.",
+      "Socket – adapted for connecting any electronic devices.",
+      "Design & Dimensions: 50x40x46 cm (H×W×D), ideal for placing next to your bed.",
+      "Style: Modern, minimalist design that fits into any interior.",
+      "Materials: A combination of natural stone and wood, ensuring durability and premium quality.",
+      "The WebEx Premium Smart nightstand will make your bedroom more comfortable and equipped with technological solutions. Buy now and enjoy your smart home!",
+      "The right choice – for modern living."
+    ]
+  },
+  "OurSolutionsSection": {
+    "title": "Our Solutions.",
+    "btn": "Details.",
+    "itemTitles": [
+      "Barrier Control.",
+      "Vehicle Recognition.",
+      "Facial Recognition.",
+      "Infrared Rays.",
+      "Laser Control.",
+      "Vehicle Recognition.",
+      "Facial Recognition.",
+      "Infrared Rays."
+    ],
+    "itemDescriptions": [
+      "Use your phone for the automatic opening and closing of barriers. Our systems ensure quick response, motion control, and precise data collection.",
+      "Smart vehicle recognition solutions enable automated entry and exit, while artificial intelligence records license plates and driving patterns.",
+      "Facial recognition technology provides a high level of security by allowing entry only to authorized individuals, preventing unauthorized access.",
+      "Security solutions with infrared rays are perfect for large areas. They provide motion detection and alert systems, allowing you to respond directly from your phone.",
+      "Laser-based security solutions are ideal for large areas. They provide motion detection and alert systems, allowing you to respond directly from your phone.",
+      "Smart vehicle recognition solutions enable automated entry and exit, while artificial intelligence records license plates and driving patterns.",
+      "Facial recognition technology provides a high level of security by allowing entry only to authorized individuals, preventing unauthorized access.",
+      "Infrared-ray security solutions are excellent for large areas. They provide motion detection and alert systems, allowing you to respond directly from your phone."
+    ]
+  },
+  "CategorySection": {
+    "btn": "More",
+    "items": [
+      {
+        "title": "Smart home",
+        "description": "Automate everything, from lights to curtains"
+      },
+      {
+        "title": "Security systems",
+        "description": "Monitor everything happening in your home or workplace through your phone"
+      },
+      {
+        "title": "Access control systems",
+        "description": "Our turnstile systems allow you to easily and accurately monitor your employees' entry and exit, ensuring a high level of control."
+      }
+    ]
+  },
+  "CRMSystemBanner": {
+    "title": "CRM EN Տարածքի ընդհանուր Անվտանգության  կառավարում՝ Ձեր Հեռախոսի միջոցով",
+    "description": "Խելացի լուծումներ՝ բարիերների, մեքենաների ճանաչման, դեմքի ճանաչման, ահազանգի միացման և այլնի համար",
+    "btn": "Գտնել լուծումը"
+  },
+  "metadata": {
+    "title": "Turnstiles for Sale | Турникеты на продажу",
+    "description": "Our turnstile sales website provides innovative and reliable solutions for access control. Our range includes high-quality turnstiles that ensure security, efficiency, and convenience in various environments—from business centers to gyms and government institutions. High quality and durability | Modern design and technology |  Fast delivery and installation | Professional consultation -- Наш сайт продажи турникетов предлагает инновационные и надежные решения для контроля доступа. В нашем ассортименте есть высококачественные турникеты, которые обеспечивают безопасность, эффективность и удобство в различных средах — от бизнес-центров до спортивных залов и государственных учреждений. Высокое качество и долговечность | Современный дизайн и технологии | Быстрая доставка и установка | Профессиональные консультации"
+  },
+  "create_by_webex": [
+    "turniket.am is powered by ",
+    "Webex Technologies",
+    ""
+  ],
+  "singleProductPageInfo": [
+    "1. Driving voltage: DC24V",
+    "2. Channel width: 550-800mm",
+    "3. Drive mode: Digital mode",
+    "4. Infrared sensors: 4-8 pairs optional",
+    "5. Working environment: -25°C to +75°C",
+    "6. Passing speed: 30-45 people/minute",
+    "7. Average trouble-free operation: 6 million times",
+    "8. Anti-collision design with clutch lock",
+    "9. Unauthorized intrusion and reverse direction alarm, infrared anti-pinch protection, 3D anti-collision mechanism",
+    "10. Size: 1400×100×980mm",
+    "11. Weight: 50kg"
+  ],
+  "singleProductPageTitles": [
+    "Technical parameters",
+    "Similar products"
+  ],
+  "catalogNewProductPageTitles": {
+    "title": "Hygiene Turnstile technical parameters"
+  },
+  "titleInfoProducts": [
+    {
+      "itemTitle": "Hygienic Turnstile PZ-sanitaric-64, 304 stainless steel, digital control, 25 passages/minute"
+    },
+    {
+      "itemTitle": "PZ-hygiene-66 Hygienic Turnstile, 304 stainless steel, digital mode and high reliability"
+    },
+    {
+      "itemTitle": "PZ-26 High Power Turnstile, entrance automatic control system, 304 stainless steel, brushless servo motor, 35 people/minute passage"
+    },
+    {
+      "itemTitle": "TM-22 WebEx Premium Smart Tube, multifunctional bedroom solution with wireless charging and light effects"
+    },
+    {
+      "itemTitle": "TV-1 RFID Bracelet for Adults and Children, 100,000+ read-write cycles, durable temperature operation"
+    },
+    {
+      "itemTitle": "PZ-3 Turnstile, 550-800 mm Passage Width, 304 stainless steel, anti-collision safety system"
+    },
+    {
+      "itemTitle": "TM-11 Webex Smart Cabinet, safe and convenient storage solution"
+    },
+    {
+      "itemTitle": "PZ-21 Turnstile, digital mode, 304 stainless steel, anti-collision safety system, 35 kg weight"
+    },
+    {
+      "itemTitle": "PZ-20 Turnstile, high protection, 304 stainless steel, continuous operation resource and wide passage dimensions"
+    },
+    {
+      "itemTitle": "PZ-4 Turnstile, 550-800 mm Passage Width, 304 stainless steel, anti-collision safety system"
+    },
+    {
+      "itemTitle": "PZ-6 Turnstile, 550-800 mm Passage Width, 45 kg weight, 304 stainless steel, anti-collision safety system"
+    },
+    {
+      "itemTitle": "BD-001"
+    },
+    {
+      "itemTitle": "DA-001"
+    },
+    {
+      "itemTitle": "SP-009"
+    },
+    {
+      "itemTitle": "SPK-022"
+    }
+  ],
+  "productMetaDataInfo": [
+    {
+      "title": "PZ-sanitaric-64 Stainless Steel Hygienic Turnstile",
+      "description": "High-quality hygienic tripod turnstile with 25 persons/min speed. Ideal for cleanrooms and industrial facilities."
+    },
+    {
+      "title": "PZ-hygiene-66 Tripod Turnstile for Food Industry",
+      "description": "304 stainless steel turnstile with digital control, 25 passages/min. Perfect for hygienic and food processing areas."
+    },
+    {
+      "title": "PZ-26 Infrared Sensor Servo Turnstile Gate",
+      "description": "Fast passage gate with servo motor, 4 infrared sensor pairs, 600mm width, and 35 users/min capacity."
+    },
+    {
+      "title": "TM-22 WebEx Smart Tube | LED, Bluetooth & Wireless",
+      "description": "Modern smart tube with Bluetooth, LED lights, and wireless charging. Perfect bedside gadget for smart living."
+    },
+    {
+      "title": "TV-1 Waterproof RFID Wristband | Durable & Smart",
+      "description": "RFID silicone wristband with 10cm read range, waterproof design, and 10-year data retention. Great for all ages."
+    },
+    {
+      "title": "PZ-3 Stainless Steel Passage System | 6M Cycles",
+      "description": "Digital turnstile system with anti-collision, 4 infrared sensors, 24V power. Built for durability and safety."
+    },
+    {
+      "title": "TM-11 WebEx Smart Cabinet with Card Access",
+      "description": "Smart bedside cabinet with secure card-based access and stylish color options. Ideal for safe storage at home."
+    },
+    {
+      "title": "PZ-21 Smart Passage Gate | Anti-Collision & IR",
+      "description": "Reliable 6M cycle turnstile with 4 IR sensors, reverse alert, and DC24V. Safe solution for controlled access."
+    },
+    {
+      "title": "PZ-20 Heavy-Duty Passage System | Military IR Sensors",
+      "description": "Advanced access gate with 8 military-grade IR sensors, 10M cycles, 4-layer protection, and servo control."
+    },
+    {
+      "title": "PZ-4 Fast Data Passage Gate | Anti-Collision, 6M Cycles",
+      "description": "30–45 users/min turnstile with 4 IR sensors and stainless steel body. Efficient and secure for high-traffic areas."
+    },
+    {
+      "title": "PZ-6 Smart Turnstile System | 6M Cycles & Safety",
+      "description": "Smart passage solution with reverse and anti-collision protection. 24V powered and suitable for any setting."
+    },
+    {
+      "title": "BD-001",
+      "description": "Access Control Type: RFID Card, QR Code, Fingerprint, Face Recognition, ESD System"
+    },
+    {
+      "title": "DA-001",
+      "description": "Modern GX108 sliding aluminum gate with 12m opening, manual/automatic control, remote operation, and customizable design. Ideal for homes, hotels, and entrance gates."
+    },
+    {
+      "title": "SP-009",
+      "description": "Smart hotel door lock with fingerprint, password, and card access. Fast recognition, reliable security, and multiple unlocking options."
+    },
+    {
+      "title": "SPK-022",
+      "description": "Smart hotel door lock with fingerprint, password, and card access. Fast recognition, reliable security, and multiple unlocking options."
+    }
+  ],
+  "PartnersComponent": {
+    "title": "They trust us"
+  },
+  "NameOfPartners": [
+    {
+      "itemTitle": "Homplex"
+    },
+    {
+      "itemTitle": "Kaiser"
+    },
+    {
+      "itemTitle": "Amicus"
+    },
+    {
+      "itemTitle": "Nor Metal"
+    },
+    {
+      "itemTitle": "Aram Khachaturian House-Museum"
+    },
+    {
+      "itemTitle": "Orbeli Brothers House-Museum"
+    },
+    {
+      "itemTitle": "Museum of the History of Wine of Armenia"
+    },
+    {
+      "itemTitle": "National Gallery of Armenia – House-Museum"
+    },
+    {
+      "itemTitle": "Sardarapat – Rebirth of Statehood"
+    },
+    {
+      "itemTitle": "Komitas Museum-Institute"
+    },
+    {
+      "itemTitle": "Vanadzor Fine Arts House-Museum"
+    },
+    {
+      "itemTitle": "Alexander Spendiaryan House-Museum"
+    },
+    {
+      "itemTitle": "Yeghishe Charents House-Museum"
+    },
+    {
+      "itemTitle": "Avetik Isahakyan House-Museum"
+    },
+    {
+      "itemTitle": "Yerevan History Museum"
+    },
+    {
+      "itemTitle": "Yervand Kochar Museum"
+    },
+    {
+      "itemTitle": "Museum of Modern Art"
+    },
+    {
+      "itemTitle": "History Museum of Armenia"
+    },
+    {
+      "itemTitle": "Hovhannes Tumanyan Museum"
+    },
+    {
+      "itemTitle": "Museum of Russian Art"
+    },
+    {
+      "itemTitle": "Sergey Parajanov Museum"
+    },
+    {
+      "itemTitle": "Sisian History Museum named after N. Adonts (Branch of the History Museum of Armenia)"
+    },
+    {
+      "itemTitle": "History Museum of Armenia"
+    },
+    {
+      "itemTitle": "Perch Proshyan House-Museum"
+    },
+    {
+      "itemTitle": "\"Garni\" Historical and Cultural Reserve-Museum"
+    },
+    {
+      "itemTitle": "Khachatur Abovian House-Museum"
+    },
+    {
+      "itemTitle": "Khoren Ter-Harutyunyan Museum"
+    },
+    {
+      "itemTitle": "Mher Abeghyan Museum"
+    },
+    {
+      "itemTitle": "Aksel Bakunts House-Museum"
+    }
+  ],
+  "TitleOpinionOfOurClients": {
+    "title": "Our Clients' Opinions"
+  },
+  "CustomerDataComments": [
+    {
+      "name": "David",
+      "jobTitle": "Sportsman",
+      "comment": "I’m very satisfied with the upgrade in our gym. The turnstile works quickly and smoothly — I just walk through, and the system instantly checks my membership. No unnecessary questions or delays. It’s convenient both for clients and for the staff, because everything is transparent and fair."
+    },
+    {
+      "name": "Aram",
+      "jobTitle": "Factory owner",
+      "comment": "After installing the employee time-tracking system, the factory’s operations have become much more organized. Now every entry is recorded automatically — no paper logs or human error involved. This has helped reduce lateness, improve discipline, and ensure transparency."
+    },
+    {
+      "name": "Anna",
+      "jobTitle": "Children’s club CEO",
+      "comment": "We strive to make our club not just a place for games, but truly a safe and comfortable space for every child. Installing turnstiles and wristbands is our step toward supporting parents. We understand how important it is to be confident that your child is safe."
+    },
+    {
+      "name": "Arthur",
+      "jobTitle": "Fitness club CEO",
+      "comment": "We, the team of the fitness club, would like to express our sincere gratitude for the installation of the turnstiles equipped with iris recognition technology. This innovative solution has significantly enhanced the level of security, streamlined the reception operations, and made access to our facilities much more convenient for our members."
+    },
+    {
+      "name": "Mariam",
+      "jobTitle": "Designer",
+      "comment": "Honestly, I didn’t even expect it to be this convenient. Coming home in the evening to a warm and bright house, with everything turning on automatically, feels like a miracle! Thank you for the modern comfort."
+    },
+    {
+      "name": "Gevorg",
+      "jobTitle": "Developer",
+      "comment": "As the developer of a multi-apartment complex, we pay great attention to the comfort and safety of our residents. Recently, we installed a smart barrier gate system at the parking entrance, and this solution has fully met our expectations"
+    }
+  ],
+  "catalog": {
+    "pz-3": [
+      "1. Driving voltage: DC24V",
+      "2. Channel width: 550-800mm",
+      "3. Drive mode: Digital mode",
+      "4. Infrared sensors: 4-8 pairs optional",
+      "5. Working environment: -25°C to +75°C",
+      "6. Passing speed: 25-45 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-collision safety system with clutch lock",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 1400×100×980mm",
+      "11. Weight: 50kg"
+    ],
+    "pz-4": [
+      "1. Driving voltage: DC24V",
+      "2. Channel width: 550-800mm",
+      "3. Drive mode: Digital mode",
+      "4. Infrared sensors: 4-8 pairs optional",
+      "5. Working environment: -25°C to +75°C",
+      "6. Passing speed: 30-45 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-collision safety system with clutch lock",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 1400×100×980mm",
+      "11. Weight: 50kg"
+    ],
+    "pz-6": [
+      "1. Driving voltage: DC24V",
+      "2. Channel width: 550-800mm",
+      "3. Drive mode: Digital mode",
+      "4. Infrared sensors: 4-8 pairs optional",
+      "5. Working environment: -25°C to +75°C",
+      "6. Passing speed: 30-45 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-collision safety system with clutch lock",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 1400×100×980mm",
+      "11. Weight: 45kg"
+    ],
+    "pz-21": [
+      "1. Driving voltage: DC24V",
+      "2. Channel width: 550-650mm",
+      "3. Drive mode: Digital mode",
+      "4. Infrared sensors: 4-8 pairs optional",
+      "5. Working environment: -25°C to +75°C",
+      "6. Passing speed: 25-40 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-collision safety system with clutch lock",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 1200×200×980mm",
+      "11. Weight: 35kg"
+    ],
+    "pz-20": [
+      "1. Driving voltage: AC100-240V (10%), 3.5A, 50/60Hz",
+      "2. Channel width: 600-1000mm",
+      "3. Drive mode: Servo closed loop algorithmic control",
+      "4. Infrared sensors: Military grade 8 pairs",
+      "5. Working environment: -25°C to +50°C, ≤95% humidity non-condensing",
+      "6. Passing speed: 40-60 people/minute",
+      "7. Average trouble-free operation: 10 million times",
+      "8. Anti-collision safety system with 4-fold protection (infrared anti-clip, mechanical anti-clip, door body position detection, current detection anti-collision)",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 1500×150×960mm",
+      "11. Weight: Not specified"
+    ],
+    "tv-1": [
+      "1. Name: RFID Wristband",
+      "2. Model Numbers: HC-WB-01, HC-WB-02, HC-WB-03, HC-WB-04, HC-WB-05",
+      "3. Material: Silicone, ABS, PVC, Fabric, Nylon, Paper",
+      "4. Size: Children/Adults",
+      "5. Color: Red, Blue, Yellow, Green, Purple, Black (Can be customized by Panton color or CMYK color)",
+      "6. Reading Distance: 0~10 cm",
+      "7. Data Retention: >10 years",
+      "8. Read-Write Cycles: >100,000 times",
+      "9. Temperature Resistance: -30°C ~ +180°C",
+      "10. Working Temperature: -30°C ~ +75°C",
+      "11. Feature: Waterproof"
+    ],
+    "pz-26": [
+      "1. Power Input: AC100-240V, 50/60Hz",
+      "2. Working Voltage and Power: 24V, 150W",
+      "3. Dimensions: 600×120×980mm",
+      "4. Channel Width: 600mm",
+      "5. Passing Speed: 35 persons/minute",
+      "6. Working Temperature: -20°C ~ +60°C",
+      "7. Working Humidity: ≤95% non-condensing",
+      "8. Mechanism: Brushless servo motor + encoder + clutch",
+      "9. 304 Type Stainless Steel",
+      "10. Photocells: 4 pairs",
+      "11. Net Weight: 65kg"
+    ],
+    "pz-sanitaric-64": [
+      "1. Driving voltage: DC24V",
+      "2. Moving Pipes: ~550mm",
+      "3. Drive mode: Digital mode",
+      "4. Tripod type",
+      "5. Working environment: -25°C to +45°C",
+      "6. Passing speed: 15-25 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-Corrosion for overall turnstile",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 410×600×1500mm",
+      "11. Net weight: 40kg"
+    ],
+    "pz-hygiene-66": [
+      "1. Driving voltage: DC24V",
+      "2. Moving Pipes: ~550mm",
+      "3. Drive mode: Digital mode",
+      "4. Tripod type",
+      "5. Working environment: -25°C to +45°C",
+      "6. Passing speed: 15-25 people/minute",
+      "7. Average trouble-free operation: 6 million times",
+      "8. Anti-Corrosion for overall turnstile",
+      "9. 304 Type Stainless Steel",
+      "10. Size: 410×600×1600mm",
+      "11. Net weight: 43kg"
+    ],
+    "bd-001": [
+      "Access Control Type: RFID Card, QR Code, Fingerprint, Face Recognition, ESD System",
+      "Barrier Open/Close Time: 0.8 s, 1 s, 1.2 s",
+      "Communication Interface: TCP/IP",
+      "Operation Direction: 2-Way",
+      "Barrier Motor: Brushless Motor",
+      "Turnstile Function: Anti-Pinch, Collision Avoidance",
+      "Material: Stainless Steel",
+      "Protection Level: IP54",
+      "Material: 304 Stainless Steel",
+      "Size: 550*465*1000mm",
+      "Passage Width: 800mm",
+      "Pass Rate: 35p~40p/m",
+      "Power Supply: 100-240V(AC)",
+      "Operating Voltage: 24V",
+      "Input Signal: Dry Contact",
+      "Sensor: 5 pairs",
+      "Motor: Brushless Servo Motor"
+    ],
+    "da-001": [
+      "Design Style: Modern",
+      "Open Style: Sliding",
+      "Opening Pattern: Manual/Automatic Control",
+      "Feature: Eco Friendly",
+      "Warranty: 2 Years",
+      "Application: Hotel, House, Other",
+      "Project Solution Capability: Graphic design, 3D model design, Total solution for projects",
+      "Model Number: GX108",
+      "Material: Aluminum Alloy",
+      "Surface Treatment: Powder Coating",
+      "Color: Black / Gray / Customized",
+      "Maximum Opening: 12 Meters",
+      "Opening Direction: Right / Left",
+      "Function: Manual / Automatic Control",
+      "Feature: Remote Control",
+      "Application: Boundary Wall Entrance Gates",
+      "Size: Customized Size"
+    ],
+    "sp-009": [
+      "Shell material: Aluminum alloy",
+      "Panel material: Acrylic",
+      "Lock core material: Stainless steel",
+      "Bluetooth standard: Bluetooth 4.1BLE or above",
+      "Fingerprint type: Semiconductor fingerprint",
+      "Recognition speed: 0.5s",
+      "Recognition error: ≤0.0001%",
+      "Fingerprint capacity: 100 pieces",
+      "Password capacity: 150 custom passwords, Unlimited passwords sent via the app",
+      "Card capacity: 200 sheets",
+      "Working temperature: -20℃ ~ 60℃",
+      "Working humidity: 5~90%RH (no condensation)",
+      "Working power supply: 4 1.5V AA alkaline dry batteries",
+      "Emergency power supply: DC5V (TYPE-C interface can be connected to a power bank for power supply)",
+      "Password length: 6-digit unlocking password",
+      "External power supply: USB interface",
+      "Power current: Static ≤65uA, Dynamic ≤250mA",
+      "Compatible APP: Tuya Smart, TT lock (optional)",
+      "Unlocking method: Fingerprint, Password, Card Key, Temporary Password, Remote Control (Optional)",
+      "Scope of application: Hotel Management Wooden Door"
+    ],
+    "spk-022": [
+      "3D dynamic face recognition opens the door securely in seconds",
+      "Approach the door lock to automatically wake up the face recognition, 0.5s fast recognition, no need to wait",
+      "Semiconductor fingerprint sensor for intelligent recognition with just one touch",
+      "Imported DSP processor, eliminating cloning and copying as fast as 0.5 seconds",
+      "No wiring or opening",
+      "One-piece streamlined and stylish clip door installation, no need to worry about damaging the glass",
+      "Product size: 190*76*68mm"
+    ]
+  },
+  "ProductGallery": {
+    "thumbnailPrefix": "Thumbnail",
+    "imageFallbackWithName": "{name} - photo {number}",
+    "imageFallback": "Product image {number}",
+    "viewImage": "View {alt}",
+    "noImages": "No additional images",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "showImage": "Show {alt}",
+    "image": "image",
+    "imageCounter": "Image {current} of {total}"
+  },
+  "ProductTabs": {
+    "description": "Description",
+    "specifications": "Specifications",
+    "gallery": "Gallery",
+    "videos": "Videos",
+    "documents": "Documents",
+    "delivery": "Delivery & Payment",
+    "image": "image",
+    "video": "video",
+    "document": "Document",
+    "download": "Download",
+    "showTab": "Show {tab} tab",
+    "noContent": "Content not available",
+    "viewImage": "View image"
+  },
+  "ProductPage": {
+    "image": "image",
+    "noSliderImages": "No additional images for slider",
+    "mainAdvantages": "Main advantages",
+    "productDetails": "Product details",
+    "category": "Category",
+    "productCode": "Product code",
+    "contactForPurchase": "Consultation",
+    "contactDescription": "Call for consultation and order",
+    "call": "Call",
+    "email": "Email"
+  },
+  "filter": {
+    "buttonFilter": "Search",
+    "searchText": "Search by code...",
+    "allCategories": "All Categories"
+  }
+}

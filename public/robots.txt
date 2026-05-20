@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://turniket.am
+
+# Sitemaps
+Sitemap: https://turniket.am/sitemap.xml
