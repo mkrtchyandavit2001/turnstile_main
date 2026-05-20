@@ -181,7 +181,7 @@ const OurProductsSections = () => {
                       title={title}
                     >
                         <Image
-                          src={product.image}
+                          src={getImgSrc(product.img)}
                           alt={title}
                           width={300}
                           height={250}
