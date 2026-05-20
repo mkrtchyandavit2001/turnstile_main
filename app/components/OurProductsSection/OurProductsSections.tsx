@@ -78,7 +78,7 @@ const OurProductsSections = () => {
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
     const fetchData = async () => {
-      try {
+     try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
@@ -104,7 +104,7 @@ const OurProductsSections = () => {
         );
 
         setProducts(filtered);
-      } catch (err) {
+      }  catch (err) {
         console.error(err);
       } finally {
         setLoading(false);

@@ -55,7 +55,7 @@ const getImgSrc = (img: string[] | string | null): string => {
   return "";
 };
 
-const OurProductsSections = () => {
+const CategorySections = () => {
   const t = useTranslations("");
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
@@ -86,7 +86,7 @@ const OurProductsSections = () => {
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
     const fetchData = async () => {
-      try {
+     try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
@@ -100,24 +100,19 @@ const OurProductsSections = () => {
         );
 
         const data = await res.json();
-
-      console.log(data);
-        
-        
         
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)
-      );
-      
-      filtered.sort(
-        (a, b) =>
-          FEATURED_PRODUCT_CODES.indexOf(a.code) -
-        FEATURED_PRODUCT_CODES.indexOf(b.code)
-      );
-      
+        );
+
+        filtered.sort(
+          (a, b) =>
+            FEATURED_PRODUCT_CODES.indexOf(a.code) -
+            FEATURED_PRODUCT_CODES.indexOf(b.code)
+        );
 
         setProducts(filtered);
-      } catch (err) {
+      }  catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
@@ -200,11 +195,11 @@ const OurProductsSections = () => {
         </div>
 
         <ButtonParrentComponent
-          btnText={t("OurProductsSection.see_more_btn")}
+          btnText={t("CategorySections.see_more_btn")}
         />
       </div>
     </div>
   );
 };
 
-export default OurProductsSections;
+export default CategorySections;

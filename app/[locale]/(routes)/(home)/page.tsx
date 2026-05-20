@@ -8,7 +8,7 @@ import DeviceSection from '@/app/components/DeviceSection/DeviceSection';
 import { Metadata } from 'next';
 import PartnersComponent from '@/app/components/PartnersComponent/PartnersComponent';
 import PeoplesCommentsComponent from '@/app/components/PeoplesCommentsComponent/PeoplesCommentsComponent';
-import OurProductsSections from '@/app/components/OurProductsSection/OurProductsSections';
+// import OurProductsSections from '@/app/components/OurProductsSection/OurProductsSections';
 import CategorySections from '@/app/components/CategorySection/CategorySections';
 
 export const metadata: Metadata = {
@@ -54,7 +54,8 @@ const HomePage = async () => {
       <PartnersComponent/>
       <InfoServices />
       <CategorySection />
-      <OurProductsSections />
+      {/* <OurProductsSection /> */}
+      <OurProductsSection />
       <DeviceSection title="titleHomePage" description="descriptionHomePage" />
       <PeoplesCommentsComponent/>
       {/* <ContactSection /> */}

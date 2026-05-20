@@ -131,13 +131,6 @@ const SimilarProductsSwipers = () => {
     );
   }
 
-  const getImgSrc = (img: string[] | string | null): string => {
-  if (!img) return "";
-  if (typeof img === "string") return img;
-  if (Array.isArray(img) && img.length > 0) return img[0];
-  return "";
-};
-
   return (
     <Swiper
       slidesPerView={4}
@@ -173,7 +166,7 @@ const SimilarProductsSwipers = () => {
               title={title}
             >
                 <Image
-                  src={getImgSrc(product.img)}
+                  src={product.image}
                   alt={title}
                   width={300}
                   height={250}
