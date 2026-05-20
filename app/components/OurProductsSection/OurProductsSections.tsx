@@ -168,7 +168,7 @@ const OurProductsSections = () => {
                       title={title}
                     >
                         <Image
-                          src={product.image}
+                          src={getIngsrc=(product.img)}
                           alt={title}
                           width={300}
                           height={250}
