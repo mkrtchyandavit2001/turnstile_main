@@ -44,12 +44,12 @@ type Product = {
   img: string[] | string | null;
 };
 
-// const getImgSrc = (img: string[] | string | null): string => {
-//   if (!img) return "";
-//   if (typeof img === "string") return img;
-//   if (Array.isArray(img) && img.length > 0) return img[0];
-//   return "";
-// };
+const getImgSrc = (img: string[] | string | null): string => {
+  if (!img) return "";
+  if (typeof img === "string") return img;
+  if (Array.isArray(img) && img.length > 0) return img[0];
+  return "";
+};
 
 const SimilarProductsSwipers = () => {
   const t = useTranslations();
@@ -166,7 +166,7 @@ const SimilarProductsSwipers = () => {
               title={title}
             >
                 <Image
-                  src={product.image}
+                  src={getImgSrc=(product.img)}
                   alt={title}
                   width={300}
                   height={250}
