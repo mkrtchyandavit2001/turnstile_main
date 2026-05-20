@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -92,40 +93,42 @@ const OurProductsSections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    const fetchData = async () => {
-      try {
-        console.log(
-          "NEXT_PUBLIC_API_URL:",
-          process.env.NEXT_PUBLIC_API_URL
-        );
+    const data = await apiFetch("/api/products");
 
-        console.log(
-          "NEXT_PUBLIC_API_KEY:",
-          process.env.NEXT_PUBLIC_API_KEY
-        );
+    // const fetchData = async () => {
+    //   try {
+    //     console.log(
+    //       "NEXT_PUBLIC_API_URL:",
+    //       process.env.NEXT_PUBLIC_API_URL
+    //     );
 
-        if (!process.env.NEXT_PUBLIC_API_URL) {
-          throw new Error("NEXT_PUBLIC_API_URL is missing");
-        }
+    //     console.log(
+    //       "NEXT_PUBLIC_API_KEY:",
+    //       process.env.NEXT_PUBLIC_API_KEY
+    //     );
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          }
-        );
+    //     if (!process.env.NEXT_PUBLIC_API_URL) {
+    //       throw new Error("NEXT_PUBLIC_API_URL is missing");
+    //     }
 
-        if (!res.ok) {
-          throw new Error(`HTTP Error: ${res.status}`);
-        }
+    //     const res = await fetch(
+    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+    //       {
+    //         method: "GET",
+    //         headers: {
+    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //           "Accept-Language": apiLocale,
+    //           Accept: "application/json",
+    //         },
+    //         cache: "no-store",
+    //       }
+    //     );
 
-        const data = await res.json();
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP Error: ${res.status}`);
+    //     }
+
+    //     const data = await res.json();
 
         if (!data?.data) {
           throw new Error("Products data not found");

@@ -10,6 +10,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
+import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -85,21 +86,23 @@ const CategorySections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    const fetchData = async () => {
-     try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          }
-        );
+const data = await apiFetch("/api/products");
 
-        const data = await res.json();
+    // const fetchData = async () => {
+    //  try {
+    //     const res = await fetch(
+    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //           "Accept-Language": apiLocale,
+    //           Accept: "application/json",
+    //         },
+    //         cache: "no-store",
+    //       }
+    //     );
+
+    //     const data = await res.json();
         
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)
