@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ENV } from "@/src/lib/env";
-
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
   "PZ-hygiene-66": 1,
@@ -165,7 +164,7 @@ const SimilarProductsSwipers = () => {
                       title={title}
                     >
                         <Image
-                          src={product.image}
+                          src={getImgSrc(product.img)}
                           alt={title}
                           width={300}
                           height={250}
