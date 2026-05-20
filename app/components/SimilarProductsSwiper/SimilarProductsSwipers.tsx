@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ENV } from "@/src/lib/env";
+import { apiFetch } from "@/src/lib/api";
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
   "PZ-hygiene-66": 1,
@@ -84,17 +85,9 @@ const SimilarProductsSwipers = () => {
 
     const fetchData = async () => {
      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-          {
-            headers: {
-               Authorization: `Bearer ${ENV.API_KEY}`,
-            },
-            cache: "no-store",
-          }
-        );
+        const data = await apiFetch("/api/products");
 
-        const data = await res.json();
+        // const data = await res.json();
         
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)
@@ -116,6 +109,22 @@ const SimilarProductsSwipers = () => {
 
     fetchData();
   }, []);
+
+if (!products.length) {
+  return (
+    <div className="flex justify-center items-center h-[200px]">
+      <p className="text-gray-500">
+        Products temporarily unavailable
+      </p>
+    </div>
+  );
+}
+
+if (typeof window !== "undefined") {
+  if (!ENV.API_URL) {
+    console.error("❌ Missing API_URL - app running in degraded mode");
+  }
+}
 
   return (
     <div
@@ -148,6 +157,8 @@ const SimilarProductsSwipers = () => {
               }}
               className="mySwiper"
             >
+
+                            
               {products.map((product) => {
                 const titleIndex = productCodeToTitleIndex[product.code];
                 const title =
