@@ -56,7 +56,7 @@ const getImgSrc = (img: string[] | string | null): string => {
   return "";
 };
 
-const SimilarProductsSwipers = () => {
+const SimilarProductsSwipers = ({productCode}) => {
   const t = useTranslations("");
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
@@ -91,7 +91,7 @@ const SimilarProductsSwipers = () => {
     const fetchData = async () => {
      try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          `${/process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
@@ -135,10 +135,6 @@ console.log(
         );
 
   return (
-    <div
-      style={{ backgroundImage: `url(${our_products_bacground.src})` }}
-      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
-    >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
         <div className="flex items-center justify-center gap-3">
           <LineIcon width={27} height={2} color="#5939F5" />
@@ -206,9 +202,7 @@ console.log(
           )}
         </div>
 
-        <ButtonParrentComponent
-          btnText={t("CategorySections.see_more_btn")}
-        />
+        
       </div>
     </div>
   );

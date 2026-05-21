@@ -208,6 +208,8 @@ const SingleProductPage = async ({ params }: PageProps) => {
         delivery: null,
     };
 
+    const productCode = product.code
+
     return (
         <div className="one_product_page container py-6 px-4 flex flex-col gap-10">
             {/* ===== MAIN IMAGE + INFO ===== */}
@@ -376,7 +378,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">
                     {tTitles("1")}
                 </h2>
-                <SimilarProductsSwipers/>
+                <SimilarProductsSwipers productCode = {productCode}/>
 
             </div>
 
