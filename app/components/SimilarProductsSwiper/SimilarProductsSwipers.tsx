@@ -136,13 +136,7 @@ console.log(
 
   return (
       <div className="container flex flex-col gap-[50px] justify-center items-center">
-        <div className="flex items-center justify-center gap-3">
-          <LineIcon width={27} height={2} color="#5939F5" />
-          <h2 className="text-[24px] font_color font-normal arm_Hmks_Bebas_Neue leading-[28.8px]">
-            {t(`OurProductsSection.title`)}
-          </h2>
-          <LineIcon width={27} height={2} color="#5939F5" />
-        </div>
+       
 
         <div className="w-full px-4">
           {loading ? (
