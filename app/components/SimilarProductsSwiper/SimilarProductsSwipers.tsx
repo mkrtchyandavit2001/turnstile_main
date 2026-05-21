@@ -7,6 +7,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
+import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -107,15 +108,23 @@ const SimilarProductsSwipers = () => {
         //     cache: "no-store",
         //   },
         // );
-        const res = await fetch(`/api/products?locale=${apiLocale}`);
-        const data = await res.json();
 
-          const contentType = res.headers.get("content-type");
-    if (!res.ok || !contentType?.includes("application/json")) {
-      const text = await res.text();
-      console.error("Bad response:", res.status, text.slice(0, 200));
-      return;
-    }
+        // const res = await fetch(`/api/products?locale=${apiLocale}`);
+        // const data = await res.json();
+
+        const data = await apiFetch(`/api/products`, {
+          headers: {
+            "Accept-Language": apiLocale,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+          },
+        });
+
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || !contentType?.includes("application/json")) {
+          const text = await res.text();
+          console.error("Bad response:", res.status, text.slice(0, 200));
+          return;
+        }
         // DEBUG — տեսնելու img field-ի կառուցվածքը
         console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
 
