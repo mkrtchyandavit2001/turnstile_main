@@ -110,6 +110,12 @@ const SimilarProductsSwipers = () => {
         const res = await fetch(`/api/products?locale=${apiLocale}`);
         const data = await res.json();
 
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || !contentType?.includes("application/json")) {
+          const text = await res.text();
+          console.error("Bad response:", res.status, text.slice(0, 200));
+          return;
+        }
         // DEBUG — տեսնելու img field-ի կառուցվածքը
         console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
 
