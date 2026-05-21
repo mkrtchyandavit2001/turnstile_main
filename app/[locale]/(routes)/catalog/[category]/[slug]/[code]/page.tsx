@@ -166,7 +166,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
     const documentItems = product.documents;
     const additionalFileItems = product.additional_files;
 
-    const productUrl = `/catalog/${product.category_slug}/${product.slug}/${product.code}`;
+    const productUrl = `/catalog/${product.category_slug}/${product.slug}/${product.code}/`;
     const currentPath = `/${locale}/catalog/${category}/${slug}/${code}`;
 
     // Телефоны для разных языков
