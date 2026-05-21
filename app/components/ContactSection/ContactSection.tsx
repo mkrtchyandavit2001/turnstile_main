@@ -204,7 +204,7 @@ const ContactSection = () => {
                   <div>
                     <ReCAPTCHA
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                      onChange={(token) => setCaptchaToken(token)}
+                      onChange={(token) => setCaptchaToken(token ?? "")}
                     />
                   </div>
 
