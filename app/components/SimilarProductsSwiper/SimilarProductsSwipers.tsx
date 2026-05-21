@@ -91,7 +91,7 @@ const SimilarProductsSwipers = ({productCode}) => {
     const fetchData = async () => {
      try {
         const res = await fetch(
-          `productCode/${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          `/${process.env.NEXT_PUBLIC_API_URL}/api/products`,
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
