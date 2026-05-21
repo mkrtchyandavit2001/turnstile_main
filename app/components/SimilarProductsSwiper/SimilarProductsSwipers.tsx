@@ -57,6 +57,13 @@ const SimilarProductsSwipers = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const getImgSrc = (img: string[] | string | null): string => {
+    if (!img) return "";
+    if (typeof img === "string") return img;
+    if (Array.isArray(img) && img.length > 0) return img[0];
+    return "";
+  };
+
   useEffect(() => {
     const cookieLang =
       document.cookie
@@ -127,7 +134,7 @@ const SimilarProductsSwipers = () => {
 
     fetchData();
   }, []);
-
+  console.log("API KEY:", process.env.NEXT_PUBLIC_API_KEY);
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[250px]">
@@ -170,7 +177,7 @@ const SimilarProductsSwipers = () => {
               title={title}
             >
               <Image
-                src={product.image}
+                src={getImgSrc(product.img)}
                 alt={title}
                 width={300}
                 height={250}
