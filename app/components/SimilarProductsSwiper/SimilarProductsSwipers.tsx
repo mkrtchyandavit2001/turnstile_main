@@ -147,9 +147,34 @@ const SimilarProductsSwipers = () => {
     // };
 
 const fetchData = async () => {
-  const res = await fetch(`/api/products?locale=${apiLocale}`);
-const data = await res.json();};
+  try {
+    const res = await fetch(`/api/products?locale=${apiLocale}`);
 
+    if (!res.ok) {
+      console.error("Bad response:", res.status);
+      return;
+    }
+
+    const data = await res.json();
+    console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
+
+    const filtered = (data.data as Product[]).filter((p) =>
+      FEATURED_PRODUCT_CODES.includes(p.code),
+    );
+
+    filtered.sort(
+      (a, b) =>
+        FEATURED_PRODUCT_CODES.indexOf(a.code) -
+        FEATURED_PRODUCT_CODES.indexOf(b.code),
+    );
+
+    setProducts(filtered);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
     console.log(products);
 
     fetchData();
