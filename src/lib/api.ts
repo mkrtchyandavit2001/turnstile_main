@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const locale = request.nextUrl.searchParams.get("locale") ?? "hy";
+  const locale = request.nextUrl.searchParams;
 
   const res = await fetch("https://turnstile-admin.turniket.am/api/products", {
     method: "GET",
