@@ -95,40 +95,40 @@ const OurProductsSections = () => {
 
     const data = await apiFetch("/api/products");
 
-    // const fetchData = async () => {
-    //   try {
-    //     console.log(
-    //       "NEXT_PUBLIC_API_URL:",
-    //       process.env.NEXT_PUBLIC_API_URL
-    //     );
+    const fetchData = async () => {
+      try {
+        console.log(
+          "NEXT_PUBLIC_API_URL:",
+          process.env.NEXT_PUBLIC_API_URL
+        );
 
-    //     console.log(
-    //       "NEXT_PUBLIC_API_KEY:",
-    //       process.env.NEXT_PUBLIC_API_KEY
-    //     );
+        console.log(
+          "NEXT_PUBLIC_API_KEY:",
+          process.env.NEXT_PUBLIC_API_KEY
+        );
 
-    //     if (!process.env.NEXT_PUBLIC_API_URL) {
-    //       throw new Error("NEXT_PUBLIC_API_URL is missing");
-    //     }
+        if (!process.env.NEXT_PUBLIC_API_URL) {
+          throw new Error("NEXT_PUBLIC_API_URL is missing");
+        }
 
-    //     const res = await fetch(
-    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-    //       {
-    //         method: "GET",
-    //         headers: {
-    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-    //           "Accept-Language": apiLocale,
-    //           Accept: "application/json",
-    //         },
-    //         cache: "no-store",
-    //       }
-    //     );
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Accept-Language": apiLocale,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          }
+        );
 
-    //     if (!res.ok) {
-    //       throw new Error(`HTTP Error: ${res.status}`);
-    //     }
+        if (!res.ok) {
+          throw new Error(`HTTP Error: ${res.status}`);
+        }
 
-    //     const data = await res.json();
+        const data = await res.json();
 
         if (!data?.data) {
           throw new Error("Products data not found");
@@ -154,6 +154,18 @@ const OurProductsSections = () => {
 
     fetchData();
   }, []);
+
+
+   console.log(
+          "NEXT_PUBLIC_API_URL:",
+          process.env.NEXT_PUBLIC_API_URL
+        );
+
+        console.log(
+          "NEXT_PUBLIC_API_KEY:",
+          process.env.NEXT_PUBLIC_API_KEY
+        );
+
 
   if (loading) {
     return (
