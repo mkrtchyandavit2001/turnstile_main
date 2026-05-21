@@ -1,15 +1,16 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
+import { LineIcon } from "@/app/icons/LineIcon";
 import React, { useEffect, useState } from "react";
+import our_products_bacground from "@/public/images/our_products_section_bacground.png";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import ButtonParrentComponent from "../ButtonParrentComponent/ButtonParrentComponent";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { useTranslations } from "next-intl";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import { apiFetch } from "@/src/lib/api";
+// import "swiper/css";
+// import "swiper/css/navigation";
+import Link from "next/link";
+// import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -23,6 +24,14 @@ const productCodeToTitleIndex: Record<string, number> = {
   "PZ-20": 8,
   "PZ-4": 9,
   "PZ-6": 10,
+};
+
+type Product = {
+  id: number;
+  slug: string;
+  category_slug: string;
+  code: string;
+  img: string[] | string | null;
 };
 
 const FEATURED_PRODUCT_CODES = [
@@ -39,31 +48,16 @@ const FEATURED_PRODUCT_CODES = [
   "PZ-hygiene-66",
 ];
 
-type Product = {
-  id: number;
-  slug: string;
-  category_slug: string;
-  code: string;
-  img: string[] | string | null;
-};
-
+// img կարող է լինել string, string[], կամ null — բոլոր դեպքերը handle ենք անում
 const getImgSrc = (img: string[] | string | null): string => {
-  if (!img) return "/fallback.png";
-
-  if (typeof img === "string") {
-    return img;
-  }
-
-  if (Array.isArray(img) && img.length > 0) {
-    return img[0];
-  }
-
-  return "/fallback.png";
+  if (!img) return "";
+  if (typeof img === "string") return img;
+  if (Array.isArray(img) && img.length > 0) return img[0];
+  return "";
 };
 
 const OurProductsSections = () => {
-  const t = useTranslations();
-
+  const t = useTranslations("");
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,7 +68,6 @@ const OurProductsSections = () => {
         .split("; ")
         .find((row) => row.startsWith("lang="))
         ?.split("=")[1] || "am";
-
     setLang(cookieLang);
   }, []);
 
@@ -93,145 +86,120 @@ const OurProductsSections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    
+// const data = await apiFetch("/api/products");
+
     const fetchData = async () => {
-      const data = await apiFetch("/api/products");
-    //   try {
-    //     console.log(
-    //       "NEXT_PUBLIC_API_URL:",
-    //       process.env.NEXT_PUBLIC_API_URL
-    //     );
+     try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Accept-Language": apiLocale,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          }
+        );
 
-    //     console.log(
-    //       "NEXT_PUBLIC_API_KEY:",
-    //       process.env.NEXT_PUBLIC_API_KEY
-    //     );
+        const data = await res.json();
+        
+        const filtered = (data.data as Product[]).filter((p) =>
+          FEATURED_PRODUCT_CODES.includes(p.code)
+        );
 
-    //     if (!process.env.NEXT_PUBLIC_API_URL) {
-    //       throw new Error("NEXT_PUBLIC_API_URL is missing");
-    //     }
+        filtered.sort(
+          (a, b) =>
+            FEATURED_PRODUCT_CODES.indexOf(a.code) -
+            FEATURED_PRODUCT_CODES.indexOf(b.code)
+        );
 
-    //     const res = await fetch(
-    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-    //       {
-    //         method: "GET",
-    //         headers: {
-    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-    //           "Accept-Language": apiLocale,
-    //           Accept: "application/json",
-    //         },
-    //         cache: "no-store",
-    //       }
-    //     );
-
-    //     if (!res.ok) {
-    //       throw new Error(`HTTP Error: ${res.status}`);
-    //     }
-
-    //     const data = await res.json();
-
-  //       if (!data?.data) {
-  //         throw new Error("Products data not found");
-  //       }
-
-  //       const filtered = (data.data as Product[]).filter((p) =>
-  //         FEATURED_PRODUCT_CODES.includes(p.code)
-  //       );
-
-  //       filtered.sort(
-  //         (a, b) =>
-  //           FEATURED_PRODUCT_CODES.indexOf(a.code) -
-  //           FEATURED_PRODUCT_CODES.indexOf(b.code)
-  //       );
-
-  //       setProducts(filtered);
-  //     } catch (err) {
-  //       console.error("FETCH ERROR:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
+        setProducts(filtered);
+      }  catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[250px]">
-        <p className="text-gray-500">Loading...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-cover bg-no-repeat py-[50px] md:p-[50px]">
+    <div
+      style={{ backgroundImage: `url(${our_products_bacground.src})` }}
+      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
+    >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
-        <div className="w-full px-4">
-          <Swiper
-            slidesPerView={4}
-            spaceBetween={30}
-            navigation={true}
-            modules={[Navigation, Autoplay]}
-            loop
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-            }}
-            className="mySwiper"
-          >
-            {products.map((product) => {
-              const titleIndex =
-                productCodeToTitleIndex[product.code];
-
-              const title =
-                titleIndex !== undefined
-                  ? t(
-                      `titleInfoProducts.${titleIndex}.itemTitle`
-                    )
-                  : product.code;
-
-              return (
-                <SwiperSlide key={product.id}>
-                  <Link
-                    href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
-                    className="flex flex-col items-center"
-                    title={title}
-                  >
-                    <Image
-                      src={getImgSrc(product.img)}
-                      alt={title}
-                      width={300}
-                      height={250}
-                      className="object-cover h-[250px] w-full"
-                    />
-
-                    <p className="text-lg mt-2 font-semibold">
-                      {product.code}
-                    </p>
-                  </Link>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+        <div className="flex items-center justify-center gap-3">
+          <LineIcon width={27} height={2} color="#5939F5" />
+          <h2 className="text-[24px] font_color font-normal arm_Hmks_Bebas_Neue leading-[28.8px]">
+            {t(`OurProductsSection.title`)}
+          </h2>
+          <LineIcon width={27} height={2} color="#5939F5" />
         </div>
+
+        <div className="w-full px-4">
+          {loading ? (
+            <div className="flex justify-center items-center h-[250px]">
+              <p className="text-gray-500">Loading...</p>
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={30}
+              navigation={true}
+              modules={[Navigation, Autoplay]}
+              loop
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1280: { slidesPerView: 4, spaceBetween: 30 },
+              }}
+              className="mySwiper"
+            >
+              {products.map((product) => {
+                const titleIndex = productCodeToTitleIndex[product.code];
+                const title =
+                  titleIndex !== undefined
+                    ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
+                    : product.code;
+
+
+                return (
+                  <SwiperSlide key={product.id}>
+                    <Link
+                      href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
+                      className="flex flex-col items-center"
+                      title={title}
+                    >
+                        <Image
+                          src={getImgSrc(product.img)}
+                          alt={title}
+                          width={300}
+                          height={250}
+                          className="object-cover h-[250px] w-full"
+                        />
+                   
+                      <p className="text-lg mt-2 font-semibold">
+                        {product.code}
+                      </p>
+                    </Link>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+        </div>
+
+        <ButtonParrentComponent
+          btnText={t("CategorySections.see_more_btn")}
+        />
       </div>
     </div>
   );
