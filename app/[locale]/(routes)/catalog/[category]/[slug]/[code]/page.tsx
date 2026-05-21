@@ -2,7 +2,7 @@
 import React from "react";
 import NewSingleProductSwiper from "@/app/components/SingleProductSwiper/NewSingleProductSwiper";
 import ButtonComponent from "@/app/components/ButtonComponent/ButtonComponent";
-import SimilarProductsSwiper from "@/app/components/SimilarProductsSwiper/SimilarProductsSwiper";
+// import SimilarProductsSwiper from "@/app/components/SimilarProductsSwiper/SimilarProductsSwiper";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import ProductTabs from "@/app/components/ProductTabs/ProductTabs";

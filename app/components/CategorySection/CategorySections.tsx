@@ -7,10 +7,10 @@ import { useTranslations } from "next-intl";
 import ButtonParrentComponent from "../ButtonParrentComponent/ButtonParrentComponent";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
+// import "swiper/css";
+// import "swiper/css/navigation";
 import Link from "next/link";
-import { apiFetch } from "@/src/lib/api";
+// import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,

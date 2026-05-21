@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
+// import "swiper/css";
+// import "swiper/css/navigation";
 import Link from "next/link";
 import { apiFetch } from "@/src/lib/api";
 

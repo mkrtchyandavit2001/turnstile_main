@@ -93,63 +93,63 @@ const OurProductsSections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    const data = await apiFetch("/api/products");
-
+    
     const fetchData = async () => {
-      try {
-        console.log(
-          "NEXT_PUBLIC_API_URL:",
-          process.env.NEXT_PUBLIC_API_URL
-        );
+      const data = await apiFetch("/api/products");
+    //   try {
+    //     console.log(
+    //       "NEXT_PUBLIC_API_URL:",
+    //       process.env.NEXT_PUBLIC_API_URL
+    //     );
 
-        console.log(
-          "NEXT_PUBLIC_API_KEY:",
-          process.env.NEXT_PUBLIC_API_KEY
-        );
+    //     console.log(
+    //       "NEXT_PUBLIC_API_KEY:",
+    //       process.env.NEXT_PUBLIC_API_KEY
+    //     );
 
-        if (!process.env.NEXT_PUBLIC_API_URL) {
-          throw new Error("NEXT_PUBLIC_API_URL is missing");
-        }
+    //     if (!process.env.NEXT_PUBLIC_API_URL) {
+    //       throw new Error("NEXT_PUBLIC_API_URL is missing");
+    //     }
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          }
-        );
+    //     const res = await fetch(
+    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+    //       {
+    //         method: "GET",
+    //         headers: {
+    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //           "Accept-Language": apiLocale,
+    //           Accept: "application/json",
+    //         },
+    //         cache: "no-store",
+    //       }
+    //     );
 
-        if (!res.ok) {
-          throw new Error(`HTTP Error: ${res.status}`);
-        }
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP Error: ${res.status}`);
+    //     }
 
-        const data = await res.json();
+    //     const data = await res.json();
 
-        if (!data?.data) {
-          throw new Error("Products data not found");
-        }
+  //       if (!data?.data) {
+  //         throw new Error("Products data not found");
+  //       }
 
-        const filtered = (data.data as Product[]).filter((p) =>
-          FEATURED_PRODUCT_CODES.includes(p.code)
-        );
+  //       const filtered = (data.data as Product[]).filter((p) =>
+  //         FEATURED_PRODUCT_CODES.includes(p.code)
+  //       );
 
-        filtered.sort(
-          (a, b) =>
-            FEATURED_PRODUCT_CODES.indexOf(a.code) -
-            FEATURED_PRODUCT_CODES.indexOf(b.code)
-        );
+  //       filtered.sort(
+  //         (a, b) =>
+  //           FEATURED_PRODUCT_CODES.indexOf(a.code) -
+  //           FEATURED_PRODUCT_CODES.indexOf(b.code)
+  //       );
 
-        setProducts(filtered);
-      } catch (err) {
-        console.error("FETCH ERROR:", err);
-      } finally {
-        setLoading(false);
-      }
+  //       setProducts(filtered);
+  //     } catch (err) {
+  //       console.error("FETCH ERROR:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
     };
 
     fetchData();
