@@ -87,42 +87,46 @@ const SimilarProductsSwipers = ({productCode}) => {
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
 // const data = await apiFetch("/api/products");
+// ✅ ՃԻՇՏ
+const data = await apiFetch("/api/products");
+const filtered = (data.data as Product[]).filter((p) =>
+  FEATURED_PRODUCT_CODES.includes(p.code)
+);
+    // const fetchData = async () => {
+    //  try {
+    //     const res = await fetch(
+    //       `/${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //           "Accept-Language": apiLocale,
+    //           Accept: "application/json",
+    //         },
+    //         cache: "no-store",
+    //       }
+    //     );
 
-    const fetchData = async () => {
-     try {
-        const res = await fetch(
-          `/${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          }
-        );
-
-        const data = await res.json();
+    //     const data = await res.json();
         
-        const filtered = (data.data as Product[]).filter((p) =>
-          FEATURED_PRODUCT_CODES.includes(p.code)
-        );
+    //     const filtered = (data.data as Product[]).filter((p) =>
+    //       FEATURED_PRODUCT_CODES.includes(p.code)
+    //     );
 
-        filtered.sort(
-          (a, b) =>
-            FEATURED_PRODUCT_CODES.indexOf(a.code) -
-            FEATURED_PRODUCT_CODES.indexOf(b.code)
-        );
+    //     filtered.sort(
+    //       (a, b) =>
+    //         FEATURED_PRODUCT_CODES.indexOf(a.code) -
+    //         FEATURED_PRODUCT_CODES.indexOf(b.code)
+    //     );
 
-        setProducts(filtered);
-      }  catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    //     setProducts(filtered);
+    //   }  catch (err) {
+    //     console.error(err);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
 
-    fetchData();
+    // fetchData();
   }, []);
 console.log(
       "NEXT_PUBLIC_API_URL:",
