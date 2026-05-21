@@ -1,15 +1,19 @@
-export const apiFetch = async (endpoint: string, options?: RequestInit) => {
-  const res = await fetch(`/backend${endpoint}`, {
-    ...options,
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  const locale = request.nextUrl.searchParams.get("locale") ?? "hy";
+
+  const res = await fetch("https://turnstile-admin.turniket.am/api/products", {
+    method: "GET",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
-      ...(options?.headers || {}),
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+      "Accept-Language": locale,
     },
+    cache: "no-store",
   });
 
-  if (!res.ok) {
-    return { data: [] };
-  }
-
-  return res.json();
-};
+  const data = await res.json();
+  return NextResponse.json(data);
+}

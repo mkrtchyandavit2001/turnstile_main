@@ -147,34 +147,8 @@ const SimilarProductsSwipers = () => {
     // };
 
 const fetchData = async () => {
-  try {
-    const data = await apiFetch(`/api/products`, {
-      headers: {
-        "Accept-Language": apiLocale,
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-      },
-    });
-
-    // apiFetch արդեն json() է անում, res չկա
-    console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
-
-    const filtered = (data.data as Product[]).filter((p) =>
-      FEATURED_PRODUCT_CODES.includes(p.code),
-    );
-
-    filtered.sort(
-      (a, b) =>
-        FEATURED_PRODUCT_CODES.indexOf(a.code) -
-        FEATURED_PRODUCT_CODES.indexOf(b.code),
-    );
-
-    setProducts(filtered);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-};
+  const res = await fetch(`/api/products?locale=${apiLocale}`);
+const data = await res.json();};
 
     console.log(products);
 
