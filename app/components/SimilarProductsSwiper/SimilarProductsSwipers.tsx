@@ -90,15 +90,29 @@ const SimilarProductsSwipers = () => {
 
     const fetchData = async () => {
       try {
-        const data = await apiFetch("/api/products");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Accept-Language": apiLocale,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          },
+        );
 
-        const filtered = (data.data as Product[])
-          .filter((p) => FEATURED_PRODUCT_CODES.includes(p.code))
-          .sort(
-            (a, b) =>
-              FEATURED_PRODUCT_CODES.indexOf(a.code) -
-              FEATURED_PRODUCT_CODES.indexOf(b.code),
-          );
+        const data = await res.json();
+
+        const filtered = (data.data as Product[]).filter((p) =>
+          FEATURED_PRODUCT_CODES.includes(p.code),
+        );
+
+        filtered.sort(
+          (a, b) =>
+            FEATURED_PRODUCT_CODES.indexOf(a.code) -
+            FEATURED_PRODUCT_CODES.indexOf(b.code),
+        );
 
         setProducts(filtered);
       } catch (err) {
@@ -112,7 +126,10 @@ const SimilarProductsSwipers = () => {
   }, []);
 
   return (
-    <div className="bg-cover bg-no-repeat py-[50px] md:p-[50px]">
+    <div
+
+      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
+    >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
         <div className="w-full px-4">
           {loading ? (
