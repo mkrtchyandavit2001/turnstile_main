@@ -89,62 +89,93 @@ const SimilarProductsSwipers = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    const fetchData = async () => {
-      try {
-        // const res = await fetch(
-        //   `https://turnstile-admin.turniket.am/api/products`,
-        //   {
-        //     method: "GET",
-        //     headers: {
-        //       Accept: "application/json",
-        //       "Content-Type": "application/json",
+    // const fetchData = async () => {
+    //   try {
+    //     // const res = await fetch(
+    //     //   `https://turnstile-admin.turniket.am/api/products`,
+    //     //   {
+    //     //     method: "GET",
+    //     //     headers: {
+    //     //       Accept: "application/json",
+    //     //       "Content-Type": "application/json",
 
-        //       // եթե API-ն պահանջում է auth
-        //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //     //       // եթե API-ն պահանջում է auth
+    //     //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
 
-        //       // լեզու
-        //       "Accept-Language": apiLocale,
-        //     },
-        //     cache: "no-store",
-        //   },
-        // );
+    //     //       // լեզու
+    //     //       "Accept-Language": apiLocale,
+    //     //     },
+    //     //     cache: "no-store",
+    //     //   },
+    //     // );
 
-        // const res = await fetch(`/api/products?locale=${apiLocale}`);
-        // const data = await res.json();
+    //     // const res = await fetch(`/api/products?locale=${apiLocale}`);
+    //     // const data = await res.json();
 
-        const data = await apiFetch(`/api/products`, {
-          headers: {
-            "Accept-Language": apiLocale,
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-          },
-        });
+    //     const data = await apiFetch(`/api/products`, {
+    //       headers: {
+    //         "Accept-Language": apiLocale,
+    //         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //       },
+    //     });
 
-        const contentType = res.headers.get("content-type");
-        if (!res.ok || !contentType?.includes("application/json")) {
-          const text = await res.text();
-          console.error("Bad response:", res.status, text.slice(0, 200));
-          return;
-        }
-        // DEBUG — տեսնելու img field-ի կառուցվածքը
-        console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
+    //     const contentType = res.headers.get("content-type");
+    //     if (!res.ok || !contentType?.includes("application/json")) {
+    //       const text = await res.text();
+    //       console.error("Bad response:", res.status, text.slice(0, 200));
+    //       return;
+    //     }
+    //     // DEBUG — տեսնելու img field-ի կառուցվածքը
+    //     console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
 
-        const filtered = (data.data as Product[]).filter((p) =>
-          FEATURED_PRODUCT_CODES.includes(p.code),
-        );
+    //     const filtered = (data.data as Product[]).filter((p) =>
+    //       FEATURED_PRODUCT_CODES.includes(p.code),
+    //     );
 
-        filtered.sort(
-          (a, b) =>
-            FEATURED_PRODUCT_CODES.indexOf(a.code) -
-            FEATURED_PRODUCT_CODES.indexOf(b.code),
-        );
+    //     filtered.sort(
+    //       (a, b) =>
+    //         FEATURED_PRODUCT_CODES.indexOf(a.code) -
+    //         FEATURED_PRODUCT_CODES.indexOf(b.code),
+    //     );
 
-        setProducts(filtered);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    //     setProducts(filtered);
+    //   } catch (err) {
+    //     console.error(err);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+
+const fetchData = async () => {
+  try {
+    const data = await apiFetch(`/api/products`, {
+      headers: {
+        "Accept-Language": apiLocale,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+      },
+    });
+
+    // apiFetch արդեն json() է անում, res չկա
+    console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
+
+    const filtered = (data.data as Product[]).filter((p) =>
+      FEATURED_PRODUCT_CODES.includes(p.code),
+    );
+
+    filtered.sort(
+      (a, b) =>
+        FEATURED_PRODUCT_CODES.indexOf(a.code) -
+        FEATURED_PRODUCT_CODES.indexOf(b.code),
+    );
+
+    setProducts(filtered);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
     console.log(products);
 
     fetchData();
