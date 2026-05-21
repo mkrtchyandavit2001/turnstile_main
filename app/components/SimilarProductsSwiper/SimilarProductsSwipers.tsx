@@ -89,35 +89,24 @@ const SimilarProductsSwipers = () => {
     // const data = await apiFetch("/api/products");
 
     const fetchData = async () => {
-  try {
-    const res = await fetch(
-      `https://turnstile-admin.turniket.am/api/products`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-          Accept: "application/json",
-        },
-        cache: "no-store",
+      try {
+        const data = await apiFetch("/api/products");
+
+        const filtered = (data.data as Product[])
+          .filter((p) => FEATURED_PRODUCT_CODES.includes(p.code))
+          .sort(
+            (a, b) =>
+              FEATURED_PRODUCT_CODES.indexOf(a.code) -
+              FEATURED_PRODUCT_CODES.indexOf(b.code),
+          );
+
+        setProducts(filtered);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-    );
-
-    const data = await res.json();
-
-    const filtered = (data.data as Product[])
-      .filter((p) => FEATURED_PRODUCT_CODES.includes(p.code))
-      .sort(
-        (a, b) =>
-          FEATURED_PRODUCT_CODES.indexOf(a.code) -
-          FEATURED_PRODUCT_CODES.indexOf(b.code)
-      );
-
-    setProducts(filtered);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-};
+    };
 
     fetchData();
   }, []);
