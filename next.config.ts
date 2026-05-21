@@ -88,79 +88,17 @@
 
 // export default withNextIntl(nextConfig);
 
-// import path from "path";
-// import { NextConfig } from "next";
-// import createNextIntlPlugin from "next-intl/plugin";
-
-// // Укажите правильный путь к i18n файлу
-// const withNextIntl = createNextIntlPlugin("./i18n.ts");
-
-// const nextConfig: NextConfig = {
-//   output: "standalone",
-
-//   // FIX WARNING
-//   outputFileTracingRoot: path.join(__dirname),
-
-//   typescript: {
-//     ignoreBuildErrors: true,
-//   },
-
-//   eslint: {
-//     ignoreDuringBuilds: true,
-//   },
-
-//   images: {
-//     unoptimized: true,
-
-//     remotePatterns:
-//       process.env.NODE_ENV === "development"
-//         ? [
-//             {
-//               protocol: "http",
-//               hostname: "host.docker.internal",
-//               port: "8088",
-//               pathname: "/storage/**",
-//             },
-//           ]
-//         : [
-//             {
-//               protocol: "https",
-//               hostname: "turniket.am",
-//               pathname: "/storage/**",
-//             },
-//           ],
-//   },
-//   env: {
-//     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-//     NEXT_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
-//   },
-// };
-
-// export default withNextIntl(nextConfig);
-
-// const nextConfig = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: "https",
-//         hostname: "turnstile-main.onrender.com",
-//       },
-//     ],
-//   },
-// };
-
-// module.exports = nextConfig;
-
-
 import path from "path";
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+// Укажите правильный путь к i18n файлу
 const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
 
+  // FIX WARNING
   outputFileTracingRoot: path.join(__dirname),
 
   typescript: {
@@ -171,17 +109,9 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  async rewrites() {
-    return [
-      {
-        source: "/backend/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
-      },
-    ];
-  },
-
   images: {
     unoptimized: true,
+
     remotePatterns:
       process.env.NODE_ENV === "development"
         ? [
@@ -200,7 +130,6 @@ const nextConfig: NextConfig = {
             },
           ],
   },
-
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
@@ -208,3 +137,74 @@ const nextConfig: NextConfig = {
 };
 
 export default withNextIntl(nextConfig);
+
+// const nextConfig = {
+//   images: {
+//     remotePatterns: [
+//       {
+//         protocol: "https",
+//         hostname: "turnstile-main.onrender.com",
+//       },
+//     ],
+//   },
+// };
+
+// module.exports = nextConfig;
+
+
+// import path from "path";
+// import { NextConfig } from "next";
+// import createNextIntlPlugin from "next-intl/plugin";
+
+// const withNextIntl = createNextIntlPlugin("./i18n.ts");
+
+// const nextConfig: NextConfig = {
+//   output: "standalone",
+
+//   outputFileTracingRoot: path.join(__dirname),
+
+//   typescript: {
+//     ignoreBuildErrors: true,
+//   },
+
+//   eslint: {
+//     ignoreDuringBuilds: true,
+//   },
+
+//   async rewrites() {
+//     return [
+//       {
+//         source: "/backend/:path*",
+//         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+//       },
+//     ];
+//   },
+
+//   images: {
+//     unoptimized: true,
+//     remotePatterns:
+//       process.env.NODE_ENV === "development"
+//         ? [
+//             {
+//               protocol: "http",
+//               hostname: "host.docker.internal",
+//               port: "8088",
+//               pathname: "/storage/**",
+//             },
+//           ]
+//         : [
+//             {
+//               protocol: "https",
+//               hostname: "turniket.am",
+//               pathname: "/storage/**",
+//             },
+//           ],
+//   },
+
+//   env: {
+//     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+//     NEXT_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+//   },
+// };
+
+// export default withNextIntl(nextConfig);
