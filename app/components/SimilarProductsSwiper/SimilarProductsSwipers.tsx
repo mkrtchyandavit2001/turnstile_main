@@ -87,7 +87,7 @@ const SimilarProductsSwipers = () => {
           `https://turnstile-admin.turniket.am/api/products`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              Authorization: `Bearer rJdTPwnZ2G6la28rsspSN2oeoAGIiFqz7Q74yHKyE0GRb31ResNzulaRPv55`,
               "Accept-Language": apiLocale,
               Accept: "application/json",
             },
