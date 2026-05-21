@@ -107,7 +107,7 @@ const SimilarProductsSwipers = () => {
         //     cache: "no-store",
         //   },
         // );
-        const res = await fetch(`/https://turnstile-admin.turniket.am/api/products`);
+        const res = await fetch(`/`);
         const data = await res.json();
 
         const contentType = res.headers.get("content-type");
