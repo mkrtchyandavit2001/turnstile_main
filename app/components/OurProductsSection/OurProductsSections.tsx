@@ -127,7 +127,6 @@ const OurProductsSections = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(${our_products_bacground.src})` }}
       className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
