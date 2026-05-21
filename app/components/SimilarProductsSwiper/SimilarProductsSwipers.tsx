@@ -222,7 +222,7 @@ const fetchData = async () => {
               title={title}
             >
               <Image
-                src={getImgSrc(product.img)}
+                src={product.image}
                 alt={title}
                 width={300}
                 height={250}
