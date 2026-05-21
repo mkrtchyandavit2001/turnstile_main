@@ -1,14 +1,17 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
+import { LineIcon } from "@/app/icons/LineIcon";
 import React, { useEffect, useState } from "react";
+import our_products_bacground from "@/public/images/our_products_section_bacground.png";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import ButtonParrentComponent from "../ButtonParrentComponent/ButtonParrentComponent";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/navigation";
-import { ENV } from "@/src/lib/env";
+import Link from "next/link";
 import { apiFetch } from "@/src/lib/api";
+
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
   "PZ-hygiene-66": 1,
@@ -83,11 +86,23 @@ const SimilarProductsSwipers = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
+// const data = await apiFetch("/api/products");
+
     const fetchData = async () => {
      try {
-        const data = await apiFetch("/api/products");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Accept-Language": apiLocale,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          }
+        );
 
-        // const data = await res.json();
+        const data = await res.json();
         
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)
@@ -109,29 +124,29 @@ const SimilarProductsSwipers = () => {
 
     fetchData();
   }, []);
+console.log(
+      "NEXT_PUBLIC_API_URL:",
+          process.env.NEXT_PUBLIC_API_URL
+        );
 
-if (!products.length) {
-  return (
-    <div className="flex justify-center items-center h-[200px]">
-      <p className="text-gray-500">
-        Products temporarily unavailable
-      </p>
-    </div>
-  );
-}
-
-if (typeof window !== "undefined") {
-  if (!ENV.API_URL) {
-    console.error("❌ Missing API_URL - app running in degraded mode");
-  }
-}
+        console.log(
+          "NEXT_PUBLIC_API_KEY:",
+          process.env.NEXT_PUBLIC_API_KEY
+        );
 
   return (
     <div
+      style={{ backgroundImage: `url(${our_products_bacground.src})` }}
       className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
       <div className="container flex flex-col gap-[50px] justify-center items-center">
-        
+        <div className="flex items-center justify-center gap-3">
+          <LineIcon width={27} height={2} color="#5939F5" />
+          <h2 className="text-[24px] font_color font-normal arm_Hmks_Bebas_Neue leading-[28.8px]">
+            {t(`OurProductsSection.title`)}
+          </h2>
+          <LineIcon width={27} height={2} color="#5939F5" />
+        </div>
 
         <div className="w-full px-4">
           {loading ? (
@@ -157,8 +172,6 @@ if (typeof window !== "undefined") {
               }}
               className="mySwiper"
             >
-
-                            
               {products.map((product) => {
                 const titleIndex = productCodeToTitleIndex[product.code];
                 const title =
@@ -193,7 +206,9 @@ if (typeof window !== "undefined") {
           )}
         </div>
 
-        
+        <ButtonParrentComponent
+          btnText={t("CategorySections.see_more_btn")}
+        />
       </div>
     </div>
   );

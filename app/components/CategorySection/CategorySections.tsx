@@ -86,23 +86,23 @@ const CategorySections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-const data = await apiFetch("/api/products");
+// const data = await apiFetch("/api/products");
 
-    // const fetchData = async () => {
-    //  try {
-    //     const res = await fetch(
-    //       `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-    //           "Accept-Language": apiLocale,
-    //           Accept: "application/json",
-    //         },
-    //         cache: "no-store",
-    //       }
-    //     );
+    const fetchData = async () => {
+     try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Accept-Language": apiLocale,
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          }
+        );
 
-    //     const data = await res.json();
+        const data = await res.json();
         
         const filtered = (data.data as Product[]).filter((p) =>
           FEATURED_PRODUCT_CODES.includes(p.code)

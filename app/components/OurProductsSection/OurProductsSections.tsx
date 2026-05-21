@@ -155,18 +155,6 @@ const OurProductsSections = () => {
     fetchData();
   }, []);
 
-
-   console.log(
-          "NEXT_PUBLIC_API_URL:",
-          process.env.NEXT_PUBLIC_API_URL
-        );
-
-        console.log(
-          "NEXT_PUBLIC_API_KEY:",
-          process.env.NEXT_PUBLIC_API_KEY
-        );
-
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[250px]">
