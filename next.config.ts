@@ -113,7 +113,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
 
     remotePatterns:
-      process.env.NODE_ENV === "development"
+      process.env.NODE_ENV === "production"
         ? [
             {
               protocol: "http",
