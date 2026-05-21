@@ -91,7 +91,7 @@ const CategorySections = () => {
     const fetchData = async () => {
      try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+          "/api/products",
           {
             headers: {
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
