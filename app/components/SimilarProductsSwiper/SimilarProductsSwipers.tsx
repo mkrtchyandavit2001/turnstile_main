@@ -90,24 +90,24 @@ const SimilarProductsSwipers = () => {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `https://turnstile-admin.turniket.am/api/products`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+        // const res = await fetch(
+        //   `https://turnstile-admin.turniket.am/api/products`,
+        //   {
+        //     method: "GET",
+        //     headers: {
+        //       Accept: "application/json",
+        //       "Content-Type": "application/json",
 
-              // եթե API-ն պահանջում է auth
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+        //       // եթե API-ն պահանջում է auth
+        //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
 
-              // լեզու
-              "Accept-Language": apiLocale,
-            },
-            cache: "no-store",
-          },
-        );
-
+        //       // լեզու
+        //       "Accept-Language": apiLocale,
+        //     },
+        //     cache: "no-store",
+        //   },
+        // );
+        const res = await fetch(`/api/products?locale=${apiLocale}`);
         const data = await res.json();
 
         // DEBUG — տեսնելու img field-ի կառուցվածքը
