@@ -86,13 +86,19 @@ const SimilarProductsSwipers = () => {
         const res = await fetch(
           `https://turnstile-admin.turniket.am/api/products`,
           {
+            method: "GET",
             headers: {
-              Authorization: `rJdTPwnZ2G6la28rsspSN2oeoAGIiFqz7Q74yHKyE0GRb31ResNzulaRPv55`,
-              "Accept-Language": apiLocale,
               Accept: "application/json",
+              "Content-Type": "application/json",
+
+              // եթե API-ն պահանջում է auth
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+
+              // լեզու
+              "Accept-Language": apiLocale,
             },
             cache: "no-store",
-          }
+          },
         );
 
         const data = await res.json();
@@ -101,17 +107,16 @@ const SimilarProductsSwipers = () => {
         console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
 
         const filtered = (data.data as Product[]).filter((p) =>
-          FEATURED_PRODUCT_CODES.includes(p.code)
+          FEATURED_PRODUCT_CODES.includes(p.code),
         );
 
         filtered.sort(
           (a, b) =>
             FEATURED_PRODUCT_CODES.indexOf(a.code) -
-            FEATURED_PRODUCT_CODES.indexOf(b.code)
+            FEATURED_PRODUCT_CODES.indexOf(b.code),
         );
 
         setProducts(filtered);
-        
       } catch (err) {
         console.error(err);
       } finally {
@@ -119,7 +124,7 @@ const SimilarProductsSwipers = () => {
       }
     };
     console.log(products);
-    
+
     fetchData();
   }, []);
 
@@ -157,7 +162,6 @@ const SimilarProductsSwipers = () => {
             ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
             : product.code;
 
-
         return (
           <SwiperSlide key={product.id}>
             <Link
@@ -165,14 +169,14 @@ const SimilarProductsSwipers = () => {
               className="flex flex-col items-center"
               title={title}
             >
-                <Image
-                  src={product.image}
-                  alt={title}
-                  width={300}
-                  height={250}
-                  className="object-cover h-[250px] w-full"
-                />
-            
+              <Image
+                src={product.image}
+                alt={title}
+                width={300}
+                height={250}
+                className="object-cover h-[250px] w-full"
+              />
+
               <p className="text-lg mt-2 font-semibold">{product.code}</p>
             </Link>
           </SwiperSlide>
