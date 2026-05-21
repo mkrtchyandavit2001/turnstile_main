@@ -10,6 +10,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 // import "swiper/css";
 // import "swiper/css/navigation";
 import Link from "next/link";
+import { apiFetch } from "@/src/lib/api";
 // import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
@@ -86,36 +87,56 @@ const OurProductsSections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-// const data = await apiFetch("/api/products");
+    // const data = await apiFetch("/api/products");
+
+    // const fetchData = async () => {
+    //  try {
+    //     const res = await fetch(
+    //       "/api/products",
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+    //           "Accept-Language": apiLocale,
+    //           Accept: "application/json",
+    //         },
+    //         cache: "no-store",
+    //       }
+    //     );
+
+    //     const data = await res.json();
+
+    //     const filtered = (data.data as Product[]).filter((p) =>
+    //       FEATURED_PRODUCT_CODES.includes(p.code)
+    //     );
+
+    //     filtered.sort(
+    //       (a, b) =>
+    //         FEATURED_PRODUCT_CODES.indexOf(a.code) -
+    //         FEATURED_PRODUCT_CODES.indexOf(b.code)
+    //     );
+
+    //     setProducts(filtered);
+    //   }  catch (err) {
+    //     console.error(err);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
 
     const fetchData = async () => {
-     try {
-        const res = await fetch(
-          "/api/products",
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-              "Accept-Language": apiLocale,
-              Accept: "application/json",
-            },
-            cache: "no-store",
-          }
-        );
+      try {
+        const data = await apiFetch("/api/products");
 
-        const data = await res.json();
-        
-        const filtered = (data.data as Product[]).filter((p) =>
-          FEATURED_PRODUCT_CODES.includes(p.code)
-        );
-
-        filtered.sort(
-          (a, b) =>
-            FEATURED_PRODUCT_CODES.indexOf(a.code) -
-            FEATURED_PRODUCT_CODES.indexOf(b.code)
-        );
+        const filtered = (data.data as Product[])
+          .filter((p) => FEATURED_PRODUCT_CODES.includes(p.code))
+          .sort(
+            (a, b) =>
+              FEATURED_PRODUCT_CODES.indexOf(a.code) -
+              FEATURED_PRODUCT_CODES.indexOf(b.code),
+          );
 
         setProducts(filtered);
-      }  catch (err) {
+      } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
@@ -126,9 +147,7 @@ const OurProductsSections = () => {
   }, []);
 
   return (
-    <div
-      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
-    >
+    <div className="bg-cover bg-no-repeat py-[50px] md:p-[50px]">
       <div className="container flex flex-col gap-[50px] justify-center items-center">
         <div className="flex items-center justify-center gap-3">
           <LineIcon width={27} height={2} color="#5939F5" />
@@ -169,7 +188,6 @@ const OurProductsSections = () => {
                     ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
                     : product.code;
 
-
                 return (
                   <SwiperSlide key={product.id}>
                     <Link
@@ -177,14 +195,14 @@ const OurProductsSections = () => {
                       className="flex flex-col items-center"
                       title={title}
                     >
-                        <Image
-                          src={getImgSrc(product.img)}
-                          alt={title}
-                          width={300}
-                          height={250}
-                          className="object-cover h-[250px] w-full"
-                        />
-                   
+                      <Image
+                        src={getImgSrc(product.img)}
+                        alt={title}
+                        width={300}
+                        height={250}
+                        className="object-cover h-[250px] w-full"
+                      />
+
                       <p className="text-lg mt-2 font-semibold">
                         {product.code}
                       </p>
@@ -196,9 +214,7 @@ const OurProductsSections = () => {
           )}
         </div>
 
-        <ButtonParrentComponent
-          btnText={t("CategorySections.see_more_btn")}
-        />
+        <ButtonParrentComponent btnText={t("CategorySections.see_more_btn")} />
       </div>
     </div>
   );
