@@ -1,70 +1,70 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import { useTranslations, useLocale } from "next-intl";
-import { toast } from "sonner";
-import Image from "next/image";
-import ReCAPTCHA from "react-google-recaptcha";
+import React, { useState } from 'react'
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik'
+import * as Yup from 'yup'
+import { useTranslations, useLocale } from 'next-intl'
+import { toast } from 'sonner'
+import Image from 'next/image'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 interface IContactForm {
-  fullName: string;
-  phone: string;
-  email: string;
-  time: string;
-  product: string;
-  description: string;
+  fullName: string
+  phone: string
+  email: string
+  time: string
+  product: string
+  description: string
 }
 
 const ContactSection = () => {
-  const t = useTranslations("ContactSection");
-  const locale = useLocale();
+  const t = useTranslations('ContactSection')
+  const locale = useLocale()
 
   const mapBackendFieldToFormik = (field: string): string => {
     const map: Record<string, string> = {
-      full_name: "fullName",
-      phone_number: "phone",
-      email: "email",
-      product_code: "product",
+      full_name: 'fullName',
+      phone_number: 'phone',
+      email: 'email',
+      product_code: 'product',
     };
 
     return map[field] ?? field;
   };
 
-  const [captchaToken, setCaptchaToken] = useState<string>("");
+  const [captchaToken, setCaptchaToken] = useState<string>('')
 
   const initialValues: IContactForm = {
-    fullName: "",
-    phone: "",
-    email: "",
-    time: "",
-    product: "",
-    description: "",
-  };
+    fullName: '',
+    phone: '',
+    email: '',
+    time: '',
+    product: '',
+    description: '',
+  }
 
-  const validationSchema = Yup.object({
-    fullName: Yup.string(),
-    phone: Yup.string(),
-    email: Yup.string().email(),
-    time: Yup.string(),
-    product: Yup.string(),
-    description: Yup.string(),
-  });
+   const validationSchema = Yup.object({
+      fullName: Yup.string(),
+      phone: Yup.string(),
+      email: Yup.string().email(),
+      time: Yup.string(),
+      product: Yup.string(),
+      description: Yup.string(),
+    });
 
   const localeMap: Record<string, string> = {
-    am: "hy",
-    ru: "ru",
-    en: "en",
-  };
+    am: 'hy',
+    ru: 'ru',
+    en: 'en',
+  }
 
   const handleSubmit = async (
     values: IContactForm,
-    { resetForm, setErrors }: FormikHelpers<IContactForm>,
+    { resetForm, setErrors }: FormikHelpers<IContactForm>
   ) => {
     if (!captchaToken) {
-      toast.error(t("captcha.required"));
-      return;
+      toast.error(t('captcha.required'))
+      return
     }
 
     try {
@@ -76,26 +76,23 @@ const ContactSection = () => {
         product_code: values.product,
         message: values.description,
         captcha: captchaToken,
-      };
+      }
 
-      const apiLocale = localeMap[locale] ?? "hy";
+      const apiLocale = localeMap[locale] ?? 'hy'
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/order-email`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-            "Content-Type": "application/json",
-            "Accept-Language": apiLocale,
-            Accept: "application/json",
-          },
-          body: JSON.stringify(payload),
-          cache: "no-store",
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/order-email`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+          'Content-Type': 'application/json',
+          'Accept-Language': apiLocale,
+          Accept: 'application/json',
         },
-      );
+        body: JSON.stringify(payload),
+        cache: 'no-store',
+      })
 
-      const data = await res.json();
+      const data = await res.json()
 
       if (res.status === 422 && data?.errors) {
         const formikErrors: Record<string, string> = {};
@@ -108,16 +105,17 @@ const ContactSection = () => {
       }
 
       if (!res.ok) {
-        throw new Error("API request failed");
+        throw new Error('API request failed');
       }
 
       resetForm();
-      toast.success(t("message.success"));
+      toast.success(t('message.success'));
+
     } catch (error) {
-      console.error("Submit error:", error);
-      toast.error(t("message.error"));
+      console.error('Submit error:', error);
+      toast.error(t('message.error'));
     }
-  };
+  }
 
   return (
     <section className="py-[20px]">
@@ -134,7 +132,7 @@ const ContactSection = () => {
                 <div className="grid gap-[20px]">
                   <div className="flex flex-col gap-[10px]">
                     <label className="freeSans font-normal text-[16px] leading-[24px] font_color">
-                      {t("placeholders.0")}
+                      {t('placeholders.0')}
                     </label>
                     <Field
                       name="fullName"
@@ -150,7 +148,7 @@ const ContactSection = () => {
 
                   <div className="flex flex-col gap-[10px]">
                     <label className="freeSans font-normal text-[16px] leading-[24px] font_color">
-                      {t("placeholders.2")}
+                      {t('placeholders.2')}
                     </label>
                     <Field
                       name="email"
@@ -166,7 +164,7 @@ const ContactSection = () => {
 
                   <div className="flex flex-col gap-[10px]">
                     <label className="freeSans font-normal text-[16px] leading-[24px] font_color">
-                      {t("placeholders.1")}
+                      {t('placeholders.1')}
                     </label>
                     <Field
                       name="phone"
@@ -182,7 +180,7 @@ const ContactSection = () => {
 
                   <div className="flex flex-col gap-[10px]">
                     <label className="freeSans font-normal text-[16px] leading-[24px] font_color">
-                      {t("placeholders.7")}
+                      {t('placeholders.7')}
                     </label>
                     <Field
                       name="product"
@@ -193,7 +191,7 @@ const ContactSection = () => {
 
                   <div className="flex flex-col gap-[10px]">
                     <label className="flex freeSans font-normal text-[16px] leading-[24px] font_color">
-                      {t("placeholders.8")}
+                      {t('placeholders.8')}
                     </label>
                     <Field
                       name="description"
@@ -205,7 +203,8 @@ const ContactSection = () => {
                   {/* ===== ReCAPTCHA ===== */}
                   <div>
                     <ReCAPTCHA
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                      // sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''}
                       onChange={(token) => setCaptchaToken(token ?? "")}
                     />
                   </div>
@@ -214,7 +213,7 @@ const ContactSection = () => {
                     type="submit"
                     className="bg-[#5939F5] text-white py-2 rounded"
                   >
-                    {t("placeholders.9")}
+                    {t('placeholders.9')}
                   </button>
                 </div>
               </Form>
@@ -226,7 +225,7 @@ const ContactSection = () => {
             {/* Contact Information */}
             <div className="bg-white p-[24px] rounded-xl shadow border border-[#E5E7EB]">
               <h3 className="font-semibold text-[18px] mb-[20px]">
-                {t("contactInfo.title")}
+                {t('contactInfo.title')}
               </h3>
 
               <div className="flex flex-col gap-[14px]">
@@ -241,12 +240,8 @@ const ContactSection = () => {
                     />
                   </div>
                   <div>
-                    <p className="text-[14px] font-medium">
-                      {t("contactInfo.address_label")}
-                    </p>
-                    <p className="text-[14px] text-gray-600">
-                      {t("contactInfo.address")}
-                    </p>
+                    <p className="text-[14px] font-medium">{t('contactInfo.address_label')}</p>
+                    <p className="text-[14px] text-gray-600">{t('contactInfo.address')}</p>
                   </div>
                 </div>
 
@@ -257,20 +252,11 @@ const ContactSection = () => {
                     href={`tel:+37496101017`}
                   >
                     <div className="w-[36px] h-[36px] rounded-md bg-[#EEF2FF] flex items-center justify-center">
-                      <Image
-                        src="/icons/phone.png"
-                        alt="phone"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src="/icons/phone.png" alt="phone" width={18} height={18} />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium">
-                        {t("contactInfo.phone_label")}
-                      </p>
-                      <p className="text-[14px] text-gray-600">
-                        +374 96-10-10-17
-                      </p>
+                      <p className="text-[14px] font-medium">{t('contactInfo.phone_label')}</p>
+                      <p className="text-[14px] text-gray-600">+374 96-10-10-17</p>
                     </div>
                   </a>
                 </div>
@@ -282,20 +268,11 @@ const ContactSection = () => {
                     href={`tel:+37496400073`}
                   >
                     <div className="w-[36px] h-[36px] rounded-md bg-[#EEF2FF] flex items-center justify-center">
-                      <Image
-                        src="/icons/phone.png"
-                        alt="phone"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src="/icons/phone.png" alt="phone" width={18} height={18} />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium">
-                        {t("contactInfo.phone_label")}
-                      </p>
-                      <p className="text-[14px] text-gray-600">
-                        +374 96-40-00-73
-                      </p>
+                      <p className="text-[14px] font-medium">{t('contactInfo.phone_label')}</p>
+                      <p className="text-[14px] text-gray-600">+374 96-40-00-73</p>
                     </div>
                   </a>
                 </div>
@@ -307,17 +284,10 @@ const ContactSection = () => {
                     href="mailto:info@webex.am"
                   >
                     <div className="w-[36px] h-[36px] rounded-md bg-[#EEF2FF] flex items-center justify-center">
-                      <Image
-                        src="/icons/mail.png"
-                        alt="email"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src="/icons/mail.png" alt="email" width={18} height={18} />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium">
-                        {t("contactInfo.email_label")}
-                      </p>
+                      <p className="text-[14px] font-medium">{t('contactInfo.email_label')}</p>
                       <p className="text-[14px] text-gray-600">info@webex.am</p>
                     </div>
                   </a>
@@ -326,20 +296,11 @@ const ContactSection = () => {
                 {/* Working hours */}
                 <div className="flex items-start gap-[12px] bg-[#F7F8FC] p-[12px] rounded-lg">
                   <div className="w-[36px] h-[36px] rounded-md bg-[#EEF2FF] flex items-center justify-center">
-                    <Image
-                      src="/icons/clock.png"
-                      alt="hours"
-                      width={18}
-                      height={18}
-                    />
+                    <Image src="/icons/clock.png" alt="hours" width={18} height={18} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-medium">
-                      {t("contactInfo.working_hours_label")}
-                    </p>
-                    <p className="text-[14px] text-gray-600">
-                      {t("contactInfo.working_hours")}
-                    </p>
+                    <p className="text-[14px] font-medium">{t('contactInfo.working_hours_label')}</p>
+                    <p className="text-[14px] text-gray-600">{t('contactInfo.working_hours')}</p>
                   </div>
                 </div>
               </div>
@@ -349,21 +310,20 @@ const ContactSection = () => {
             <div className="bg-white rounded-xl shadow border border-[#E5E7EB] h-[260px] flex items-center justify-center text-gray-400">
               <iframe
                 title="Company Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3047.5985696312355!2d44.4945502!3d40.1957463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abd7adb56dc45%3A0x2dba28308da8ae68!2sIT%20Park!5e0!3m2!1sru!2sam!4v1771404191922!5m2!1sru!2sam"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3047.5985696312355!2d44.4945502!3d40.195746299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abd7adb56dc45%3A0x2dba28308da8ae68!2sIT%20Park!5e0!3m2!1sru!2sam!4v1771404191922!5m2!1sru!2sam"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
+                allowFullScreen={false}
                 loading="lazy"
-                allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-              />
+              ></iframe>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ContactSection;
+export default ContactSection
