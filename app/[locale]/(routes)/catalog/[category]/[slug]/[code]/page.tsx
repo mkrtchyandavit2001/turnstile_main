@@ -103,7 +103,7 @@ export async function generateMetadata({
 /* =======================
    PAGE
 ======================= */
-// Обновляем тип параметров для Next.js 15
+// ????????? ??? ?????????? ??? Next.js 15
 type PageProps = {
     params: Promise<{
         locale: string;
@@ -114,7 +114,7 @@ type PageProps = {
 };
 
 const SingleProductPage = async ({ params }: PageProps) => {
-    // Деструктурируем параметры с await
+    // ??????????????? ????????? ? await
     const { locale, code, category, slug } = await params;
     const apiLocale = localeMap[locale] ?? "en";
 
@@ -154,13 +154,13 @@ const SingleProductPage = async ({ params }: PageProps) => {
 
     const { data: product }: { data: ProductAPIResponse } = await res.json();
 
-    // Подготовка данных для слайдера и табов
+    // ?????????? ?????? ??? ???????? ? ?????
     const allMediaItems: MediaItem[] = [
         ...(product.main_image ? [product.main_image] : []),
         ...product.slider_images,
     ];
 
-    // Для слайдера используем все изображения
+    // ??? ???????? ?????????? ??? ???????????
     const sliderImages = allMediaItems.filter(item => item.type === 'image');
     const videoItems = product.videos;
     const documentItems = product.documents;
@@ -169,25 +169,25 @@ const SingleProductPage = async ({ params }: PageProps) => {
     const productUrl = `/catalog/${product.category_slug}/${product.slug}/${product.code}/`;
     const currentPath = `/${locale}/catalog/${category}/${slug}/${code}`;
 
-    // Телефоны для разных языков
+    // ???????? ??? ?????? ??????
     const phoneNumbers = {
         ru: ['+374 96-10-10-17', '+374 96-40-00-73'],
         en: ['+374 96-10-10-17', '+374 96-40-00-73'],
         hy: ['+374 96-10-10-17', '+374 96-40-00-73']
     };
 
-    // Форматирование номера телефона для ссылки
+    // ?????????????? ?????? ???????? ??? ??????
     const formatPhoneForLink = (phone: string): string => {
         return phone.replace(/[^0-9+]/g, '');
     };
 
-    // Извлечение преимуществ из описания
+    // ?????????? ??????????? ?? ????????
     const extractAdvantages = (html: string): string[] => {
         const text = html.replace(/<[^>]*>/g, '');
         const lines = text.split('\n')
             .filter(line => line.trim().length > 0 && line.trim().length < 200);
 
-        // Если мало строк, создаем преимущества из первых предложений
+        // ???? ???? ?????, ??????? ???????????? ?? ?????? ???????????
         if (lines.length < 2) {
             const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
             return sentences.slice(0, 4);
@@ -198,7 +198,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
 
     const advantages = extractAdvantages(product.description);
     console.log(advantages)
-    // Подготовка данных для табов
+    // ?????????? ?????? ??? ?????
     const tabsData = {
         description: product.description,
         specifications: product.specifications,
@@ -216,7 +216,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
 
                 {/* LEFT: IMAGE SECTION WITH SLIDER */}
                 <div className="w-[48%] max-md:w-full flex flex-col">
-                    {/* Слайдер под главной картинкой */}
+                    {/* ??????? ??? ??????? ????????? */}
                     {sliderImages.length > 0 ? (
                         <div className="flex-1">
                             <NewSingleProductSwiper
@@ -240,12 +240,12 @@ const SingleProductPage = async ({ params }: PageProps) => {
                 {/* RIGHT: PRODUCT INFO */}
                 <div className="w-[48%] max-md:w-full">
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
-                        {/* Заголовок */}                        
+                        {/* ????????? */}                        
                         <h1 className="text-2xl lg:text-3xl custom:text-2xl font-bold text-gray-900 uppercase mb-4">
                             {product.code} {product.name}
                         </h1>
 
-                        {/* Основные преимущества */}
+                        {/* ???????? ???????????? */}
                         <div className="flex-grow">
                             <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
                                 <FaCheckCircle className="text-green-500" />
@@ -280,7 +280,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                             
                         </div>
 
-                        {/* Категория и Код товара */}
+                        {/* ????????? ? ??? ?????? */}
                         <div className="mb-4 pt-4 border-t border-gray-100">
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="bg-gray-50 p-2 rounded">
@@ -303,7 +303,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                             </div>
                         </div>
 
-                        {/* Компактный блок контактов */}                     
+                        {/* ?????????? ???? ????????? */}                     
                         <div className="mb-4">
                             <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
                                 <div className="flex items-center gap-2 mb-3">
@@ -314,9 +314,9 @@ const SingleProductPage = async ({ params }: PageProps) => {
                                     </div>
                                 </div>
 
-                                {/* Контейнер для телефонов и почты */}
+                                {/* ????????? ??? ????????? ? ????? */}
                                 <div className="flex flex-col xl:flex-row gap-2 w-full">
-                                    {/* Телефоны */}
+                                    {/* ???????? */}
                                     {phoneNumbers[apiLocale as keyof typeof phoneNumbers]?.map((phone, index) => (
                                         <a
                                             key={index}
@@ -346,7 +346,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                             </div>
                         </div>
 
-                        {/* Кнопка заказа */}
+                        {/* ?????? ?????? */}
                         <div className="pt-4 border-t border-gray-100">
                             <ButtonComponent
                                 name={t("order_btn")}
@@ -364,7 +364,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                 </div>
             </div>
 
-            {/* ТАБЫ */}
+            {/* ???? */}
             <div className="">
                 <ProductTabs
                     data={tabsData}
@@ -372,7 +372,7 @@ const SingleProductPage = async ({ params }: PageProps) => {
                 />
             </div>
 
-            {/* ПОХОЖИЕ ТОВАРЫ */}
+            {/* ??????? ?????? */}
             <div className="mt-10 pt-8 border-t border-gray-200">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">
                     {tTitles("1")}

@@ -1,6 +1,6 @@
 export const ENV = {
-  API_URL: process.env.NEXT_PUBLIC_API_URL || "",
-  API_KEY: process.env.NEXT_PUBLIC_API_KEY || "",
+ 	NEXT_PUBLIC_API_URL=https://turnstile-admin.turniket.am
+NEXT_PUBLIC_API_KEY=rJdTPwnZ2G6la28rsspSN2oeoAGIiFqz7Q74yHKyE0GRb31ResNzulaRPv55
 };
 
 export const isEnvValid = Boolean(ENV.API_URL && ENV.API_KEY);

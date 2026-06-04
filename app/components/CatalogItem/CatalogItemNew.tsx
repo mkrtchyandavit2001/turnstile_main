@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useTransition } from 'react'; // ????????? ? useTransition
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
-import { filterProps } from 'framer-motion';
 
 type Product = {
   id: number;
@@ -13,6 +12,7 @@ type Product = {
   slug: string;
   category_slug: string;
   image: string;
+  name?: string; // ?????????? optional, ???? ?? ???????? ??????????? ?? item.name
 };
 
 type Category = {
@@ -20,7 +20,6 @@ type Category = {
   name: string;
   slug: string;
 };
-
 
 export default function CatalogItemNew({
   products,
@@ -31,6 +30,7 @@ export default function CatalogItemNew({
 }) {
   const t = useTranslations('');
   const router = useRouter();
+  const [isPending, startTransition] = useTransition(); // ??????? ??????
   const [lang, setLang] = useState('am');
   const [code, setCode] = useState('');
   const [category_id, setCategory] = useState('');
@@ -47,7 +47,6 @@ export default function CatalogItemNew({
     setLang(cookieLang);
   }, []);
 
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -59,12 +58,10 @@ export default function CatalogItemNew({
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
 
   const applyFilter = () => {
     const query = new URLSearchParams();
@@ -72,11 +69,28 @@ export default function CatalogItemNew({
     if (code) query.append('code', code);
     if (category_id) query.append('category_id', category_id);
 
-    router.push(`/${lang}/catalog?${query.toString()}`);
+    // ????????? ???????? ??? loader-?
+    startTransition(() => {
+      router.push(`/${lang}/catalog?${query.toString()}`);
+    });
+  };
+
+  const handleProductClick = (category_slug: string, slug: string, productCode: string) => {
+    // ??????? ?? ?????? ???????? ??? loader-?
+    startTransition(() => {
+      router.push(`/${lang}/catalog/${category_slug}/${slug}/${productCode}`);
+    });
   };
 
   return (
-    <div className="container pb-6 flex flex-col gap-7 items-end">  
+    <div className="container pb-6 flex flex-col gap-7 items-end relative">  
+
+      {/* ??????? Loader-? ?????? */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
+        </div>
+      )}
 
       <div className="flex flex-col sm:flex-col md:flex-row gap-4 
                       w-full md:justify-end mb-6 px-4 md:px-10">
@@ -88,22 +102,7 @@ export default function CatalogItemNew({
           className="border p-2 rounded w-full md:w-[360px]"
         />
 
-        {/* <select
-          value={category_id}
-          onChange={(e) => setCategory(e.target.value)}
-          className="border p-2 rounded w-full md:w-[360px]"
-        >
-          <option value="">{t('filter.allCategories')}</option>
-
-          {categories.map(cat => (
-            <option key={cat.id} value={cat.id}>
-              {cat.name}
-            </option>
-          ))}
-        </select> */}
-
         <div ref={dropdownRef} className="relative w-full md:w-[360px]">
-
           <button
             onClick={() => setIsOpen(prev => !prev)}
             className="border px-4 py-2 rounded font_color flex items-center justify-between w-full"
@@ -131,7 +130,6 @@ export default function CatalogItemNew({
 
           {isOpen && (
             <div className="absolute w-full bg-white rounded-md shadow-lg z-50 mt-1 max-h-[250px] overflow-auto">
-
               <button
                 className="font_color block px-4 py-2 hover:bg-gray-100 w-full text-left"
                 onClick={() => {
@@ -156,7 +154,6 @@ export default function CatalogItemNew({
               ))}
             </div>
           )}
-
         </div>
 
         <button
@@ -167,7 +164,6 @@ export default function CatalogItemNew({
         </button>
       </div>       
       
-      
       <div className="flex flex-wrap justify-center w-full gap-[20px]">
         {products.map(item => (
           <div
@@ -177,13 +173,7 @@ export default function CatalogItemNew({
             {/* IMAGE */}
             <div
               className="w-full h-[233px] shadow-sm rounded relative overflow-hidden"
-              onClick={() =>
-                // router.push(`/${lang}/catalog/${item.category_slug}/${item.slug}/${item.code}`)
-                window.open(
-                          `/${lang}/catalog/${item.category_slug}/${item.slug}/${item.code}`,
-                  "_blank"
-                )
-              }
+              onClick={() => handleProductClick(item.category_slug, item.slug, item.code)}
               title={item.code}
             >
               <Image

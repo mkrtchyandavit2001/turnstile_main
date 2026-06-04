@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import ButtonComponent from "@/app/components/ButtonComponent/ButtonComponent";
 import VideoComponent from "@/app/components/VideoComonent/VideoComonent";
-import SimilarProductsSwiper from "@/app/components/SimilarProductsSwiper/SimilarProductsSwiper";
+import SimilarProductsSwipers from '@/app/components/SimilarProductsSwiper/SimilarProductsSwipers';
 import SingleProductSwiper from "@/app/components/SingleProductSwiper/SingleProductSwiper";
 import { our_products_data } from "@/utils/catalog";
 import { getTranslations } from "next-intl/server";

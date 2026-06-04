@@ -1,13 +1,14 @@
 "use client";
+
 import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
+import React, { useEffect, useState, useTransition } from "react"; // ????????? ? useTransition
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation"; // ????????? ?
+
 import "swiper/css";
 import "swiper/css/navigation";
-import { apiFetch } from "@/src/lib/api";
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -45,24 +46,27 @@ type Product = {
   img: string[] | string | null;
 };
 
-// const getImgSrc = (img: string[] | string | null): string => {
-//   if (!img) return "";
-//   if (typeof img === "string") return img;
-//   if (Array.isArray(img) && img.length > 0) return img[0];
-//   return "";
-// };
-
-const SimilarProductsSwipers = () => {
+export default function SimilarProductsSwipers() {
   const t = useTranslations();
+  const router = useRouter(); // ??????? ?????????????
+  const [isPending, startTransition] = useTransition(); // ??????? ??????
+
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   const getImgSrc = (img: string[] | string | null): string => {
-    if (!img) return "";
-    if (typeof img === "string") return img;
-    if (Array.isArray(img) && img.length > 0) return img[0];
-    return "";
+    if (!img) return "/placeholder.png";
+
+    if (typeof img === "string") {
+      return img;
+    }
+
+    if (Array.isArray(img) && img.length > 0) {
+      return img[0];
+    }
+
+    return "/placeholder.png";
   };
 
   useEffect(() => {
@@ -71,6 +75,7 @@ const SimilarProductsSwipers = () => {
         .split("; ")
         .find((row) => row.startsWith("lang="))
         ?.split("=")[1] || "am";
+
     setLang(cookieLang);
   }, []);
 
@@ -89,153 +94,116 @@ const SimilarProductsSwipers = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-    // const fetchData = async () => {
-    //   try {
-    //     // const res = await fetch(
-    //     //   `https://turnstile-admin.turniket.am/api/products`,
-    //     //   {
-    //     //     method: "GET",
-    //     //     headers: {
-    //     //       Accept: "application/json",
-    //     //       "Content-Type": "application/json",
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/products?locale=${apiLocale}`);
 
-    //     //       // եթե API-ն պահանջում է auth
-    //     //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+        if (!res.ok) {
+          console.error("Bad response:", res.status);
+          return;
+        }
 
-    //     //       // լեզու
-    //     //       "Accept-Language": apiLocale,
-    //     //     },
-    //     //     cache: "no-store",
-    //     //   },
-    //     // );
+        const data = await res.json();
 
-    //     // const res = await fetch(`/api/products?locale=${apiLocale}`);
-    //     // const data = await res.json();
+        const filtered = (data.data as Product[]).filter((product) =>
+          FEATURED_PRODUCT_CODES.includes(product.code),
+        );
 
-    //     const data = await apiFetch(`/api/products`, {
-    //       headers: {
-    //         "Accept-Language": apiLocale,
-    //         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-    //       },
-    //     });
+        filtered.sort(
+          (a, b) =>
+            FEATURED_PRODUCT_CODES.indexOf(a.code) -
+            FEATURED_PRODUCT_CODES.indexOf(b.code),
+        );
 
-    //     const contentType = res.headers.get("content-type");
-    //     if (!res.ok || !contentType?.includes("application/json")) {
-    //       const text = await res.text();
-    //       console.error("Bad response:", res.status, text.slice(0, 200));
-    //       return;
-    //     }
-    //     // DEBUG — տեսնելու img field-ի կառուցվածքը
-    //     console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
-
-    //     const filtered = (data.data as Product[]).filter((p) =>
-    //       FEATURED_PRODUCT_CODES.includes(p.code),
-    //     );
-
-    //     filtered.sort(
-    //       (a, b) =>
-    //         FEATURED_PRODUCT_CODES.indexOf(a.code) -
-    //         FEATURED_PRODUCT_CODES.indexOf(b.code),
-    //     );
-
-    //     setProducts(filtered);
-    //   } catch (err) {
-    //     console.error(err);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-
-const fetchData = async () => {
-  try {
-    const res = await fetch(`/api/products?locale=${apiLocale}`);
-
-    if (!res.ok) {
-      console.error("Bad response:", res.status);
-      return;
-    }
-
-    const data = await res.json();
-    console.log("FIRST PRODUCT IMG:", data.data?.[0]?.img);
-
-    const filtered = (data.data as Product[]).filter((p) =>
-      FEATURED_PRODUCT_CODES.includes(p.code),
-    );
-
-    filtered.sort(
-      (a, b) =>
-        FEATURED_PRODUCT_CODES.indexOf(a.code) -
-        FEATURED_PRODUCT_CODES.indexOf(b.code),
-    );
-
-    setProducts(filtered);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-};
-    console.log(products);
+        setProducts(filtered);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchData();
   }, []);
-  console.log("API KEY:", process.env.NEXT_PUBLIC_API_KEY);
+
+  // ??????? ??? ???????? ?????????
+  const handleProductClick = (e: React.MouseEvent, url: string) => {
+    e.preventDefault(); // ????????? ??? ????????? ????? ???????
+    startTransition(() => {
+      router.push(url);
+    });
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[250px]">
-        <p className="text-gray-500">Loading...</p>
+        {/* API-?? ????????? ??????? loader */}
+        <div className="w-8 h-8 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <Swiper
-      slidesPerView={4}
-      spaceBetween={30}
-      navigation={true}
-      modules={[Navigation, Autoplay]}
-      loop
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      breakpoints={{
-        320: { slidesPerView: 1, spaceBetween: 10 },
-        640: { slidesPerView: 2, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 30 },
-        1280: { slidesPerView: 4, spaceBetween: 30 },
-      }}
-      className="mySwiper"
-    >
-      {products.map((product) => {
-        const titleIndex = productCodeToTitleIndex[product.code];
-        const title =
-          titleIndex !== undefined
-            ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
-            : product.code;
+    <div className="relative w-full">
+      {/* ??????? Loader-? ?????? ????? ?????? ??????? */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
+        </div>
+      )}
 
-        return (
-          <SwiperSlide key={product.id}>
-            <Link
-              href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
-              className="flex flex-col items-center"
-              title={title}
-            >
-              <Image
-                src={product.image}
-                alt={title}
-                width={300}
-                height={250}
-                className="object-cover h-[250px] w-full"
-              />
+      <Swiper
+        modules={[Navigation, Autoplay]}
+        navigation
+        loop
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        spaceBetween={30}
+        slidesPerView={4}
+        breakpoints={{
+          320: { slidesPerView: 1, spaceBetween: 10 },
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 30 },
+          1280: { slidesPerView: 4, spaceBetween: 30 },
+        }}
+        className="w-full"
+      >
+        {products.map((product) => {
+          const titleIndex = productCodeToTitleIndex[product.code];
 
-              <p className="text-lg mt-2 font-semibold">{product.code}</p>
-            </Link>
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
+          const title =
+            titleIndex !== undefined
+              ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
+              : product.code;
+
+          const productUrl = `/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`;
+
+          return (
+            <SwiperSlide key={product.id}>
+              <a
+                href={productUrl}
+                onClick={(e) => handleProductClick(e, productUrl)}
+                title={title}
+                className="flex flex-col items-center cursor-pointer"
+              >
+                <Image
+                  src={product.image} 
+                  alt={title}
+                  width={300}
+                  height={250}
+                  className="w-full h-[250px] object-cover rounded"
+                />
+
+                <p className="mt-3 text-center font-semibold text-lg font_color">
+                  {product.code}
+                </p>
+              </a>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
   );
-};
-
-export default SimilarProductsSwipers;
+}

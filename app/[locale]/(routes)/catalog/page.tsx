@@ -5,7 +5,6 @@ import CatalogItemNew from "@/app/components/CatalogItem/CatalogItemNew";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 
-// Расширяем тип Product с недостающими полями
 type Product = {
   id: number;
   code: string;
@@ -15,8 +14,7 @@ type Product = {
   name?: string;
   description?: string;
   price?: number;
-  // Добавляем другие поля которые могут быть нужны
-  [key: string]: string | number | boolean | undefined; // Для любых дополнительных полей
+  [key: string]: string | number | boolean | undefined; 
 };
 
 type Category = {
@@ -25,7 +23,6 @@ type Category = {
   slug: string;
 };
 
-// Обновляем тип параметров для generateMetadata
 type MetadataProps = {
   params: Promise<{ locale: string }>;
 };
@@ -33,11 +30,9 @@ type MetadataProps = {
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
-  // Деструктурируем параметры с await
   const { locale } = await params;
 
-  // Динамические title и description в зависимости от локали
-  const titles = {
+   const titles = {
     am: "Կատալոգ | Turnstiles Catalog | Каталог Турникетов",
     ru: "Каталог Турникетов | Turnstiles Catalog",
     en: "Turnstiles Catalog",
@@ -88,7 +83,6 @@ export async function generateMetadata({
     },
   };
 }
-
 const localeMap: Record<string, string> = {
   am: "hy",
   ru: "ru",
@@ -147,7 +141,7 @@ async function getProducts(
   const data = await res.json();
     console.log("First product structure:", data.data);
 
-  // Логируем структуру данных для отладки
+  // ???????? ????????? ?????? ??? ???????
   if (data.data && data.data.length > 0) {
     console.log("First product structure:", Object.keys(data.data[0]));
   }
@@ -155,7 +149,7 @@ async function getProducts(
   return data.data || [];
 }
 
-// Обновляем тип параметров для компонента
+// ????????? ??? ?????????? ??? ??????????
 type PageProps = {
   params: Promise<{ locale: string }>;
   searchParams: {
@@ -165,7 +159,7 @@ type PageProps = {
 };
 
 export default async function CatalogPage({ params, searchParams }: PageProps) {
-  // Деструктурируем параметры с await
+  // ??????????????? ????????? ? await
   const { locale } = await params;
 
   const t = await getTranslations("");

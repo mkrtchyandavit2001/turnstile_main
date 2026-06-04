@@ -1,11 +1,10 @@
-version: "3.9"
 services:
   nextjs:
     build: .
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "3001:3000"
+    extra_hosts:
+      - "turnstile-admin.turniket.am:host-gateway"
+      - "www.turnstile-admin.turniket.am:host-gateway"
     environment:
-      NODE_ENV: development
+      - NEXT_PUBLIC_API_KEY=rJdTPwnZ2G6la28rsspSN2oeoAGIiFqz7Q74yHKyE0GRb31ResNzulaRPv55

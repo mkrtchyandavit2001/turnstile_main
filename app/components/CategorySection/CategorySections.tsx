@@ -1,17 +1,13 @@
 "use client";
 import { LineIcon } from "@/app/icons/LineIcon";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react"; // ????????? ? useTransition
 import our_products_bacground from "@/public/images/our_products_section_bacground.png";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import ButtonParrentComponent from "../ButtonParrentComponent/ButtonParrentComponent";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-// import "swiper/css";
-// import "swiper/css/navigation";
-import Link from "next/link";
-import { apiFetch } from "@/src/lib/api";
-// import { apiFetch } from "@/src/lib/api";
+import { useRouter } from "next/navigation"; // ????????? ?
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -49,16 +45,18 @@ const FEATURED_PRODUCT_CODES = [
   "PZ-hygiene-66",
 ];
 
-// img կարող է լինել string, string[], կամ null — բոլոր դեպքերը handle ենք անում
 const getImgSrc = (img: string[] | string | null): string => {
-  if (!img) return "";
+  if (!img) return "/placeholder.png";
   if (typeof img === "string") return img;
   if (Array.isArray(img) && img.length > 0) return img[0];
-  return "";
+  return "/placeholder.png";
 };
 
 const CategorySections = () => {
   const t = useTranslations("");
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition(); // ?????????? ??????
+
   const [lang, setLang] = useState("am");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -87,10 +85,8 @@ const CategorySections = () => {
 
     const apiLocale = localeMap[cookieLang] ?? "hy";
 
-// const data = await apiFetch("/api/products");
-
     const fetchData = async () => {
-     try {
+      try {
         const res = await fetch(
           "/api/products",
           {
@@ -116,41 +112,35 @@ const CategorySections = () => {
         );
 
         setProducts(filtered);
-      }  catch (err) {
+      } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    // const fetchData = async () => {
-    //       try {
-    //         const data = await apiFetch("/api/products");
-    
-    //         const filtered = (data.data as Product[])
-    //           .filter((p) => FEATURED_PRODUCT_CODES.includes(p.code))
-    //           .sort(
-    //             (a, b) =>
-    //               FEATURED_PRODUCT_CODES.indexOf(a.code) -
-    //               FEATURED_PRODUCT_CODES.indexOf(b.code),
-    //           );
-    
-    //         setProducts(filtered);
-    //       } catch (err) {
-    //         console.error(err);
-    //       } finally {
-    //         setLoading(false);
-    //       }
-    //     };
-
     fetchData();
   }, []);
+
+  // ?????????? ????????? ????????? ????????
+  const handleNavigation = (url: string) => {
+    startTransition(() => {
+      router.push(url);
+    });
+  };
 
   return (
     <div
       style={{ backgroundImage: `url(${our_products_bacground.src})` }}
-      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
+      className="relative bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
+      {/* ??????? Loader-? ?????? ????? ?????? ??????? */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="container flex flex-col gap-[50px] justify-center items-center">
         <div className="flex items-center justify-center gap-3">
           <LineIcon width={27} height={2} color="#5939F5" />
@@ -163,7 +153,8 @@ const CategorySections = () => {
         <div className="w-full px-4">
           {loading ? (
             <div className="flex justify-center items-center h-[250px]">
-              <p className="text-gray-500">Loading...</p>
+              {/* ????????? API ??????? ?????? */}
+              <div className="w-10 h-10 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
             </div>
           ) : (
             <Swiper
@@ -191,26 +182,31 @@ const CategorySections = () => {
                     ? t(`titleInfoProducts.${titleIndex}.itemTitle`)
                     : product.code;
 
+                const productUrl = `/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`;
 
                 return (
                   <SwiperSlide key={product.id}>
-                    <Link
-                      href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`}
-                      className="flex flex-col items-center"
+                    <a
+                      href={productUrl}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigation(productUrl);
+                      }}
+                      className="flex flex-col items-center cursor-pointer"
                       title={title}
                     >
-                        <Image
-                          src={product.image}
-                          alt={title}
-                          width={300}
-                          height={250}
-                          className="object-cover h-[250px] w-full"
-                        />
-                   
-                      <p className="text-lg mt-2 font-semibold">
+                      <Image
+                        src={product.image} // ??????? ? product.image -> getImgSrc(product.img)
+                        alt={title}
+                        width={300}
+                        height={250}
+                        className="object-cover h-[250px] w-full rounded"
+                      />
+                     
+                      <p className="text-lg mt-2 font-semibold font_color">
                         {product.code}
                       </p>
-                    </Link>
+                    </a>
                   </SwiperSlide>
                 );
               })}
@@ -218,9 +214,15 @@ const CategorySections = () => {
           )}
         </div>
 
-        <ButtonParrentComponent
-          btnText={t("CategorySections.see_more_btn")}
-        />
+        {/* �?????? ??????� ?????? ??????? ??????? */}
+        <div 
+          onClick={() => handleNavigation(`/${lang}/catalog`)} 
+          className="cursor-pointer"
+        >
+          <ButtonParrentComponent
+            btnText={t("CategorySections.see_more_btn")}
+          />
+        </div>
       </div>
     </div>
   );

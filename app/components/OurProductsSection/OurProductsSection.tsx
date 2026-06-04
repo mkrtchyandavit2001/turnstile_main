@@ -1,13 +1,8 @@
 'use client'
 import { LineIcon } from '@/app/icons/LineIcon';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react'; // Ավելացված է useTransition
 import our_products_bacground from '@/public/images/our_products_section_bacground.png';
-// import pz_13_img from '@/public/images/PZ-13.png';
-// import pz_14_img from '@/public/images/PZ-14.png';
-// import pz_3_img from '@/public/images/PZ-3.png';
-// import pz_4_img from '@/public/images/PZ-4.png';
 import Image from 'next/image';
-// import ButtonComponent from '../ButtonComponent/ButtonComponent';
 import { useTranslations } from 'next-intl';
 import ButtonParrentComponent from '../ButtonParrentComponent/ButtonParrentComponent';
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -15,7 +10,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { our_products_data } from '@/utils/catalog';
 import "swiper/css";
 import "swiper/css/navigation";
-import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Ավելացված է
 
 const productCodeToTitleIndex: Record<string, number> = {
   "PZ-sanitaric-64": 0,
@@ -33,6 +28,8 @@ const productCodeToTitleIndex: Record<string, number> = {
 
 const OurProductsSection = () => {
   const t = useTranslations('');
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition(); // Անցումների լոադերի վիճակը
   const [lang, setLang] = useState('am');
   const productCodes = ['PZ-3', 'PZ-4', 'PZ-21', 'PZ-6', 'PZ-20', "TV-1", 'PZ-26','TM-11','TM-22', 'PZ-sanitaric-64', 'PZ-hygiene-66']
 
@@ -44,13 +41,25 @@ const OurProductsSection = () => {
     setLang(cookieLang);
   }, []);
 
-  
+  // Նավիգացիան կառավարող և լոադերը միացնող ընդհանուր ֆունկցիա
+  const handleNavigation = (url: string) => {
+    startTransition(() => {
+      router.push(url);
+    });
+  };
 
   return (
     <div
       style={{ backgroundImage: `url(${our_products_bacground.src})` }}
-      className="bg-cover bg-no-repeat py-[50px] md:p-[50px]"
+      className="relative bg-cover bg-no-repeat py-[50px] md:p-[50px]"
     >
+      {/* Գլխավոր Loader-ի էկրանը էջերի անցման ժամանակ */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-t-[#5939F5] border-gray-200 rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="container flex flex-col gap-[50px] justify-center items-center">
         <div className="flex items-center justify-center gap-3">
           <LineIcon width={27} height={2} color="#5939F5"/>
@@ -72,49 +81,53 @@ const OurProductsSection = () => {
               disableOnInteraction: false,
             }}
             breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
+              320: { slidesPerView: 1, spaceBetween: 10 },
+              640: { slidesPerView: 2, spaceBetween: 20 },
+              1024: { slidesPerView: 3, spaceBetween: 30 },
+              1280: { slidesPerView: 4, spaceBetween: 30 },
             }}
             className="mySwiper"
           >
             {our_products_data.map(product => {
               const titleIndex = productCodeToTitleIndex[product.code];
               const title = productCodes.includes(product.code) && titleIndex !== undefined
-              ? t(`titleInfoProducts.${titleIndex}.itemTitle`) : "";
+                ? t(`titleInfoProducts.${titleIndex}.itemTitle`) : "";
+              
+              const productUrl = `/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`;
+
               return (
-              <SwiperSlide key={product.id}>
-                {/* <Link href={`/${lang}/catalog/${product.code}`} className="flex flex-col items-center" */} {/*/>/////////////////*/}
-                <Link href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`} className="flex flex-col items-center"
-                 title={title}>
-                  <Image
-                    src={product.img[0]}
-                    alt={product.id}
-                    className="object-cover h-[250px]"
-                  />
-                  <p className="text-lg mt-2 font-semibold">{product.code}</p>
-                </Link>
-              </SwiperSlide>
-            )
+                <SwiperSlide key={product.id}>
+                  <a 
+                    href={productUrl} 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(productUrl);
+                    }}
+                    className="flex flex-col items-center cursor-pointer"
+                    title={title}
+                  >
+                    <Image
+                      src={product.img[0]}
+                      alt={product.id}
+                      width={300}
+                      height={250}
+                      className="object-cover h-[250px] w-full rounded"
+                    />
+                    <p className="text-lg mt-2 font-semibold font_color">{product.code}</p>
+                  </a>
+                </SwiperSlide>
+              )
             })}
           </Swiper>
-
         </div>
 
-        <ButtonParrentComponent btnText={t('OurProductsSection.see_more_btn')} />
+        {/* «Տեսնել ավելին» կոճակի լոադերի միացումը */}
+        <div 
+          onClick={() => handleNavigation(`/${lang}/catalog`)} 
+          className="cursor-pointer"
+        >
+          <ButtonParrentComponent btnText={t('OurProductsSection.see_more_btn')} />
+        </div>
       </div>
     </div>
   );
