@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // ✅ Ավելացրու սա
   async rewrites() {
     return [
       {

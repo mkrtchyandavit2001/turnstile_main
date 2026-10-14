@@ -97,7 +97,7 @@ const OurProductsSection = () => {
               ? t(`titleInfoProducts.${titleIndex}.itemTitle`) : "";
               return (
               <SwiperSlide key={product.id}>
-                {/* <Link href={`/${lang}/catalog/${product.code}`} className="flex flex-col items-center" */} {/*/>/////////////////*/}
+                {/* <Link href={`/${lang}/catalog/${product.code}`} className="flex flex-col items-center" />///////////////// */}
                 <Link href={`/${lang}/catalog/${product.category_slug}/${product.slug}/${product.code}`} className="flex flex-col items-center"
                  title={title}>
                   <Image

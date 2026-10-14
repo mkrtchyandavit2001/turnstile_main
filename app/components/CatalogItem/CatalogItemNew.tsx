@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
-import { filterProps } from 'framer-motion';
 
 type Product = {
   id: number;
   code: string;
+  name?: string;
   slug: string;
   category_slug: string;
   image: string;
@@ -36,6 +36,12 @@ export default function CatalogItemNew({
   const [category_id, setCategory] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Newest product first (highest id first)
+  const sortedProducts = useMemo(
+    () => [...products].sort((a, b) => b.id - a.id),
+    [products]
+  );
 
   useEffect(() => {
     const cookieLang =
@@ -87,20 +93,6 @@ export default function CatalogItemNew({
           onChange={(e) => setCode(e.target.value)}
           className="border p-2 rounded w-full md:w-[360px]"
         />
-
-        {/* <select
-          value={category_id}
-          onChange={(e) => setCategory(e.target.value)}
-          className="border p-2 rounded w-full md:w-[360px]"
-        >
-          <option value="">{t('filter.allCategories')}</option>
-
-          {categories.map(cat => (
-            <option key={cat.id} value={cat.id}>
-              {cat.name}
-            </option>
-          ))}
-        </select> */}
 
         <div ref={dropdownRef} className="relative w-full md:w-[360px]">
 
@@ -169,7 +161,7 @@ export default function CatalogItemNew({
       
       
       <div className="flex flex-wrap justify-center w-full gap-[20px]">
-        {products.map(item => (
+        {sortedProducts.map(item => (
           <div
             key={item.id}
             className="w-[280px] flex flex-col items-center gap-[10px] bg-white rounded border-gray-100 border-2 cursor-pointer"
@@ -178,20 +170,25 @@ export default function CatalogItemNew({
             <div
               className="w-full h-[233px] shadow-sm rounded relative overflow-hidden"
               onClick={() =>
-                // router.push(`/${lang}/catalog/${item.category_slug}/${item.slug}/${item.code}`)
                 window.open(
-                          `/${lang}/catalog/${item.category_slug}/${item.slug}/${item.code}`,
+                  `/${lang}/catalog/${item.category_slug}/${item.slug}/${item.code}`,
                   "_blank"
                 )
               }
               title={item.code}
             >
-              <Image
-                src={item.image}
-                alt={item.code}
-                fill
-                className="w-full h-full object-cover rounded absolute top-0 left-0 transition-opacity duration-1000 opacity-100 z-10"
-              />
+              {item.image ? (
+                <Image
+                  src={item.image}
+                  alt={item.code}
+                  fill
+                  className="w-full h-full object-cover rounded absolute top-0 left-0 transition-opacity duration-1000 opacity-100 z-10"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-gray-100 text-sm text-gray-400">
+                  No image
+                </div>
+              )}
             </div>
 
             {/* CONTENT */}
